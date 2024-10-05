@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+
+<div class="text-center" *ngIf="isLogged; else loggedOut">
+  <h2>Вы уже вошли в систему</h2>
+</div>
+
+<ng-template #loggedOut>
+  <form class="form-signup w-100 m-auto" #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+    <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+  
+    <div class="form-floating">
+      <input type="username" class="form-control" id="floatingUsername" placeholder="user1" name="username" [(ngModel)]="username" required>
+      <label for="floatingInput">Имя аккаунта</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="email" [(ngModel)]="email" required>
+      <label for="floatingInput">Электронная почта</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"
+      [(ngModel)]="password" required ng-class="(password!='' && password!=confirmPassword) ? 'ng-invalid' : ''">
+      <label for="floatingPassword">Пароль</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Password" name="confirmPassword"
+      [(ngModel)]="confirmPassword" required ng-class="(password!='' && password!=repeatPassword) ? 'ng-invalid' : ''">
+      <label for="floatingPassword">Повторите пароль</label>
+    </div>
+  
+    <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="!f.valid">Зарегистрировать</button>
+    <p class="mt-5 mb-3 text-body-secondary">Ivan Shumovich - Graduation project</p>
+    </form>
+</ng-template>
