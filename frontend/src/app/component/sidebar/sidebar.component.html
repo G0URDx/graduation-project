@@ -1,0 +1,47 @@
+<div class="sidebar" [ngClass]="collapsed ? 'sidebar-collapsed': ''">
+    <div class="logo-container">
+        <button class="logo" (click)="toggleCollapse()">A</button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">CRM</div>
+        <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidebar()">
+            <!-- <i class="fal fa-times close-icon"></i> -->
+        </button>
+    </div>
+    <ul class="sidebar-nav">
+        <li class="sidebar-nav-item" >  <!--*ngFor="let data of navData"-->
+            <a class="sidebar-nav-link" 
+                routerLink="/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-house"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Home</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="!isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="/auth/signin" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-right-to-bracket"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Signin</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="!isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="/auth/signup" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-user-plus"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Signup</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}"
+                (click)="onLogOut()">
+                    <i class="sidebar-link-icon fa-solid fa-right-from-bracket"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Quit</span>
+            </a>
+        </li>
+    </ul>
+</div>

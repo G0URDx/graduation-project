@@ -6,9 +6,9 @@ import { HomeComponent } from './component/home/home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
+  {path : "home" , component: HomeComponent},
   {path : "auth/signup" , component: SignupComponent},
   {path : "auth/signin" , component: SigninComponent},
-  {path : "home" , component: HomeComponent},
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];
 

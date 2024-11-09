@@ -13,6 +13,8 @@ import { SignupComponent } from './component/signup/signup.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { SigninComponent } from './component/signin/signin.component';
 import { HomeComponent } from './component/home/home.component';
+import { BodyComponent } from './component/body/body.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { HomeComponent } from './component/home/home.component';
     NavbarComponent,
     SigninComponent,
     HomeComponent,
+    BodyComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
