@@ -16,6 +16,8 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Home</span>
             </a>
         </li>
+
+        <!-- Authentication buttons -->
         <li class="sidebar-nav-item" *ngIf="!isLogged">
             <a class="sidebar-nav-link" 
                 routerLink="/auth/signin" 
@@ -34,6 +36,18 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Signup</span>
             </a>
         </li>
+        
+        <!-- Manager buttons -->
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="/transportation-offer" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-solid fa-file"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Transportation offer</span>
+            </a>
+        </li>
+        
         <li class="sidebar-nav-item" *ngIf="isLogged">
             <a class="sidebar-nav-link" 
                 routerLinkActive="active" 

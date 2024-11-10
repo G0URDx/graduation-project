@@ -45,6 +45,7 @@ export class SigninComponent implements OnInit {
       
       // Перенаправляем после логина
       this.router.navigate(['/home']);
+      window.location.reload();
     },
     err => {
       this.isLogged = false;
