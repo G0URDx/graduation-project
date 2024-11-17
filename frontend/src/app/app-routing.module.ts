@@ -7,14 +7,19 @@ import { SigninComponent } from './component/signin/signin.component';
 
 // View compoenents
 import { HomeComponent } from './component/home/home.component';
-import { TransportationOfferComponent } from './component/transportation-offer/transportation-offer.component';
+import { TransportationOfferHomeComponent } from './component/transportation-offer/transportation-offer-home/transportation-offer-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
+
   {path : "home" , component: HomeComponent},
-  {path : "transportation-offer" , component: TransportationOfferComponent},
+
   {path : "auth/signup" , component: SignupComponent},
   {path : "auth/signin" , component: SigninComponent},
+
+  {path: "transportation-offer/home", component: TransportationOfferHomeComponent},
+  {path: "transportation-offer", redirectTo: "transportation-offer/home", pathMatch: "full"},
+
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];
 

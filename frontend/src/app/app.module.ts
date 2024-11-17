@@ -17,7 +17,7 @@ import { SigninComponent } from './component/signin/signin.component';
 import { HomeComponent } from './component/home/home.component';
 import { BodyComponent } from './component/body/body.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
-import { TransportationOfferComponent } from './component/transportation-offer/transportation-offer.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,6 @@ import { TransportationOfferComponent } from './component/transportation-offer/t
     HomeComponent,
     BodyComponent,
     SidebarComponent,
-    TransportationOfferComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +40,7 @@ import { TransportationOfferComponent } from './component/transportation-offer/t
     ToastrModule.forRoot(),
     FormsModule
   ],
-  providers: [mainInterceptorProvider],
+  providers: [mainInterceptorProvider, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

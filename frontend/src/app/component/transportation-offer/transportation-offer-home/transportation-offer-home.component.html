@@ -1,0 +1,58 @@
+<div>
+    <h1 style="text-align: center;"><strong>Transportation Offer</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchTransportationOffer(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openTransportationOfferDialog(transportationOffer)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- id_offer Column -->
+      <ng-container matColumnDef="id_offer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.id_offer}} </td>
+      </ng-container>
+      
+      <!-- date_offer Column -->
+      <ng-container matColumnDef="date_offer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Offer created </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.date_offer}} </td>
+      </ng-container>
+      
+      <!-- location_load_transportation_offer Column -->
+      <ng-container matColumnDef="location_load_transportation_offer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by load location"> Load location </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.location_load_transportation_offer}} </td>
+      </ng-container>
+      
+      <!-- location_unload_transportation_offer Column -->
+      <ng-container matColumnDef="location_unload_transportation_offer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by unload location"> Unload location </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.location_unload_transportation_offer}} </td>
+      </ng-container>
+
+      <!-- freight_transportation_offer Column -->
+      <ng-container matColumnDef="freight_transportation_offer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fraight"> Fraight </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.freight_transportation_offer}} </td>
+      </ng-container>
+
+      <!-- edit Column -->
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let transportationOffer"> <button (click)="openTransportationOfferDialog(transportationOffer)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+      </ng-container>
+
+      <!-- delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let transportationOffer"> <button (click)="deleteTransportationOffer(transportationOffer.id_offer)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let transportationOffers; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>
