@@ -1,0 +1,70 @@
+<div>
+    <h1 style="text-align: center;"><strong>Clients</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchClient(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openClientDialog(client)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_client Column -->
+        <ng-container matColumnDef="id_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let client"> {{client.id_client}} </td>
+        </ng-container>
+        
+        <!-- name_client Column -->
+        <ng-container matColumnDef="name_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Name </th>
+          <td mat-cell *matCellDef="let client"> {{client.name_client}} </td>
+        </ng-container>
+  
+        <!-- location_client Column -->
+        <ng-container matColumnDef="location_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Location </th>
+          <td mat-cell *matCellDef="let client"> {{client.location_client}} </td>
+        </ng-container>
+        
+        <!-- work_number_client Column -->
+        <ng-container matColumnDef="work_number_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by work number"> Work number </th>
+          <td mat-cell *matCellDef="let client"> {{client.work_number_client}} </td>
+        </ng-container>
+        
+        <!-- tax_number_client Column -->
+        <ng-container matColumnDef="tax_number_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tax number"> Tax number </th>
+          <td mat-cell *matCellDef="let client"> {{client.tax_number_client}} </td>
+        </ng-container>
+  
+        <!-- employee_client Column -->
+        <ng-container matColumnDef="employee_client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fraight"> Employee </th>
+          <td mat-cell *matCellDef="let client"> {{client.employee_client}} </td>
+        </ng-container>
+
+        <!-- description_client Column -->
+        <ng-container matColumnDef="description_client">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description"> Description </th>
+            <td mat-cell *matCellDef="let client"> {{client.description_client}} </td>
+          </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let transportationOffer"> <button (click)="openClientDialog(client)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let transportationOffer"> <button (click)="deleteClient(client.id_client)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let transportationOffers; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

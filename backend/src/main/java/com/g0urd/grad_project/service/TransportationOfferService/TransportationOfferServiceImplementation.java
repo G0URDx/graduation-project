@@ -36,6 +36,7 @@ public class TransportationOfferServiceImplementation implements TransportationO
                 .findById(transportationOffer.getId_offer()).get();
         if (transportationOfferObject != null) {
             transportationOfferObject.setDate_offer(transportationOffer.getDate_offer());
+            transportationOfferObject.setClient(transportationOffer.getClient());
             transportationOfferObject
                     .setFreight_transportation_offer(transportationOffer.getFreight_transportation_offer());
             transportationOfferObject

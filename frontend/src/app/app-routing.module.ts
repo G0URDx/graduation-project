@@ -8,6 +8,7 @@ import { SigninComponent } from './component/signin/signin.component';
 // View compoenents
 import { HomeComponent } from './component/home/home.component';
 import { TransportationOfferHomeComponent } from './component/transportation-offer/transportation-offer-home/transportation-offer-home.component';
+import { ClientHomeComponent } from './component/client/client-home/client-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -19,6 +20,9 @@ const routes: Routes = [
 
   {path: "transportation-offer/home", component: TransportationOfferHomeComponent},
   {path: "transportation-offer", redirectTo: "transportation-offer/home", pathMatch: "full"},
+
+  {path: "client/home", component: ClientHomeComponent},
+  {path: "client", redirectTo: "client/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];

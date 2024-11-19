@@ -44,7 +44,16 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-solid fa-file"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Transportation offer</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Transportation offers</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="/client/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-circle-user"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Clients</span>
             </a>
         </li>
         

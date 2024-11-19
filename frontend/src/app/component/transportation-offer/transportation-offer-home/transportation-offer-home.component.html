@@ -1,5 +1,5 @@
 <div>
-    <h1 style="text-align: center;"><strong>Transportation Offer</strong></h1>
+    <h1 style="text-align: center;"><strong>Transportation Offers</strong></h1>
 
     <mat-form-field>
       <input (input)="searchTransportationOffer(filter.value)" matInput placeholder="Search" type="text" #filter>
@@ -18,6 +18,12 @@
       <ng-container matColumnDef="date_offer">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Offer created </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.date_offer}} </td>
+      </ng-container>
+
+      <!-- id_client Column -->
+      <ng-container matColumnDef="id_client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by client"> Client </th>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.id_client}} </td>
       </ng-container>
       
       <!-- location_load_transportation_offer Column -->
