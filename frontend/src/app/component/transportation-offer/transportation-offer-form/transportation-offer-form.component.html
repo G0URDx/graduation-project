@@ -1,4 +1,4 @@
-<div class="container" style="background-color: #212529; width: 1000px; height: 500px;">
+<div class="container" style="background-color: #212529; width: 1000px; height: 700px;">
     <div mat-dialog-title>
         <h2 style="text-align: center; color: white"><strong>Transportation Offer Form</strong></h2>
     </div>
@@ -9,6 +9,15 @@
                 <input [(ngModel)]="data.date_offer" matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="clientInput" style="display: flex; justify-content: center; align-items: center;">
+            <mat-form-field>
+                <mat-select [(ngModel)]="data.client">
+                    @for (client of clients; track client) {
+                        <mat-option [value]="client">{{client.name_client}}</mat-option>
+                    }
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="locLoadInput" style="display: flex; justify-content: center; align-items: center;">

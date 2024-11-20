@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TransportationOffer } from '../transportation-offer';
 import { TransportationOfferService } from '../../../service/transportation-offer/transportation-offer.service';
 import { TransportationOfferFormComponent } from '../transportation-offer-form/transportation-offer-form.component';
+import { Client } from '../../client/client';
 
 @Component({
   selector: 'app-transportation-offer-home',
@@ -21,14 +22,22 @@ import { TransportationOfferFormComponent } from '../transportation-offer-form/t
 })
 export class TransportationOfferHomeComponent implements AfterViewInit  {
 
-  displayedColumns: string[] = ['id_offer', 'date_offer', 'id_client', 'location_load_transportation_offer', 'location_unload_transportation_offer', 'freight_transportation_offer', 'edit', 'delete'];
+  displayedColumns: string[] = ['id_offer', 'date_offer', 'client', 'location_load_transportation_offer', 'location_unload_transportation_offer', 'freight_transportation_offer', 'edit', 'delete'];
   dataSource = new MatTableDataSource<TransportationOffer>();
   transportationOffers: TransportationOffer[]=[];
   filteredTransportationOffers: TransportationOffer[]=[];
 
   /* Transportation offer dialog */
   date_offer: Date = new Date(0);
-  id_client: any = undefined;
+  client: Client = {
+    id_client: 0,
+    name_client: '',
+    location_client: '',
+    work_number_client: '',
+    tax_number_client: '',
+    employee_client: '',
+    description_client: '',
+  }
   location_load_transportation_offer: String = '';
   location_unload_transportation_offer: String = '';
   freight_transportation_offer: any = undefined;
@@ -36,7 +45,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   transportationOffer: TransportationOffer = {
     id_offer: 0,
     date_offer: new Date(0),
-    id_client: this.id_client,
+    client: this.client,
     location_load_transportation_offer: '',
     location_unload_transportation_offer: '',
     freight_transportation_offer: this.freight_transportation_offer,
@@ -61,7 +70,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
     this.filteredTransportationOffers = this.transportationOffers.filter(transportationOffer => 
       transportationOffer.id_offer.toString().toLowerCase().includes(input.toLowerCase()) ||
       transportationOffer.date_offer.toString().toLowerCase().includes(input.toLowerCase()) ||
-      transportationOffer.id_client.toString().toLowerCase().includes(input.toLowerCase()) ||
+      transportationOffer.client.name_client.toString().toLowerCase().includes(input.toLowerCase()) ||
       transportationOffer.location_load_transportation_offer.toLowerCase().includes(input.toLowerCase()) ||
       transportationOffer.location_unload_transportation_offer.toLowerCase().includes(input.toLowerCase()) ||
       transportationOffer.freight_transportation_offer.toString().toLowerCase().includes(input.toLowerCase())
@@ -78,7 +87,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
       if(result !== undefined) {
         this.transportationOffer.id_offer = result.id_offer;
         this.transportationOffer.date_offer = result.date_offer;
-        this.transportationOffer.id_client = result.id_client;
+        this.transportationOffer.client = result.id_client;
         this.transportationOffer.location_load_transportation_offer = result.location_load_transportation_offer;
         this.transportationOffer.location_unload_transportation_offer = result.location_unload_transportation_offer;
         this.transportationOffer.freight_transportation_offer = result.freight_transportation_offer;
