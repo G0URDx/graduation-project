@@ -73,7 +73,7 @@ export class ClientHomeComponent implements AfterViewInit {
 
   openClientDialog(client: Client): void {
     const dialogRef = this.dialog.open(ClientFormComponent, {
-      data:this.client
+      data:client
     });
 
     dialogRef.afterClosed().subscribe(result => {

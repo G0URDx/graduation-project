@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SecurityService } from './service/security/security.service';
 
 // Authentication components
 import { SignupComponent } from './component/signup/signup.component'; 
@@ -18,10 +19,10 @@ const routes: Routes = [
   {path : "auth/signup" , component: SignupComponent},
   {path : "auth/signin" , component: SigninComponent},
 
-  {path: "transportation-offer/home", component: TransportationOfferHomeComponent},
+  {path: "transportation-offer/home", component: TransportationOfferHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "transportation-offer", redirectTo: "transportation-offer/home", pathMatch: "full"},
 
-  {path: "client/home", component: ClientHomeComponent},
+  {path: "client/home", component: ClientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "client", redirectTo: "client/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},

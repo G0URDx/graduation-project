@@ -13,11 +13,23 @@
         </div>
         <div class="clientInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field>
-                <mat-select [(ngModel)]="data.client">
-                    @for (client of clients; track client) {
-                        <mat-option [value]="client">{{client.name_client}}</mat-option>
-                    }
+                <!-- <mat-select [(ngModel)]="data.client">
+                    <mat-option *ngFor="let client of clients | async" [value]="client">
+                        {{client.name_client}}
+                    </mat-option>
+                </mat-select> -->
+
+                <mat-select [(ngModel)]="data.client" placeholder="Client" #singleSelect>
+                    <mat-option>
+                        <ngx-mat-select-search *ngIf="true" [formControl]="clientFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                          <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let client of filteredClients | async" [value]="client">
+                        {{client.name_client}}
+                      </mat-option>
                 </mat-select>
+
             </mat-form-field>
         </div>
         <div class="locLoadInput" style="display: flex; justify-content: center; align-items: center;">
