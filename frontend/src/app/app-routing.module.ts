@@ -10,6 +10,9 @@ import { SigninComponent } from './component/signin/signin.component';
 import { HomeComponent } from './component/home/home.component';
 import { TransportationOfferHomeComponent } from './component/transportation-offer/transportation-offer-home/transportation-offer-home.component';
 import { ClientHomeComponent } from './component/client/client-home/client-home.component';
+import { CustomsHomeComponent } from './component/customs/customs-home/customs-home.component';
+import { SenderHomeComponent } from './component/sender/sender-home/sender-home.component';
+import { RecipientHomeComponent } from './component/recipient/recipient-home/recipient-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -24,6 +27,15 @@ const routes: Routes = [
 
   {path: "client/home", component: ClientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "client", redirectTo: "client/home", pathMatch: "full"},
+
+  {path: "customs/home", component: CustomsHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "customs", redirectTo: "customs/home", pathMatch: "full"},
+
+  {path: "sender/home", component: SenderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "sender", redirectTo: "sender/home", pathMatch: "full"},
+
+  {path: "recipient/home", component: RecipientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "recipient", redirectTo: "recipient/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];

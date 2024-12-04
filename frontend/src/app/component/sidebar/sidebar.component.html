@@ -56,9 +56,37 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Clients</span>
             </a>
         </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="customs/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-person-military-pointing"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Customs</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged"> 
+            <a class="sidebar-nav-link" 
+                routerLink="sender/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-person-arrow-up-from-line"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Senders</span>
+            </a>
+        </li> 
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="recipient/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-person-arrow-down-to-line"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Recipients</span>
+            </a>
+        </li>
 
         <!-- Admin buttons -->
         
+        <!-- Quit button -->
         <li class="sidebar-nav-item" *ngIf="isLogged">
             <a class="sidebar-nav-link" 
                 routerLinkActive="active" 
