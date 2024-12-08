@@ -16,6 +16,8 @@ import { Cargo } from '../../cargo/cargo';
 import { Sender } from '../../sender/sender';
 import { Customs } from '../../customs/customs';
 import { Recipient } from '../../recipient/recipient';
+import { CargoService } from '../../../service/cargo/cargo.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-transportation-offer-home',
@@ -92,7 +94,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   readonly dialog = inject(MatDialog);
 
-  constructor(private transportationOfferService: TransportationOfferService) {}
+  constructor(private transportationOfferService: TransportationOfferService, private cargoService: CargoService) {}
 
   ngAfterViewInit(): void {
     this.transportationOfferService.fetchAllTransportationOffers().subscribe((data) => {
@@ -117,40 +119,59 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   openTransportationOfferDialog(transportationOffer: TransportationOffer): void {
     const dialogRef = this.dialog.open(TransportationOfferFormComponent, {
       data: {
-        transportationOffer: transportationOffer,
-        cargo: transportationOffer.cargo || {}
+        transportationOffer: { ...transportationOffer }, // Передача копии объекта
+        cargo: { ...transportationOffer.cargo } // Передача копии груза
       }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined) {
-        this.transportationOffer.id_offer = result.id_offer;
-        this.transportationOffer.date_offer = result.date_offer;
-        this.transportationOffer.client = result.client;
-        this.transportationOffer.cargo = result.cargo;
-        this.transportationOffer.freight_transportation_offer = result.freight_transportation_offer;
+      if (result) {
+        const updatedOfferIndex = this.transportationOffers.findIndex(
+          offer => offer.id_offer === result.transportationOffer.id_offer
+        );
+        if (updatedOfferIndex >= 0) {
+          this.transportationOffers[updatedOfferIndex] = result.transportationOffer;
+        } else {
+          this.transportationOffers.push(result.transportationOffer);
+        }
+        this.dataSource.data = this.transportationOffers; // Обновление данных таблицы
       }
-      const updatedOfferIndex = this.transportationOffers.findIndex(
-        offer => offer.id_offer === result.transportationOffer.id_offer
-      );
-      if (updatedOfferIndex >= 0) {
-        this.transportationOffers[updatedOfferIndex] = result.transportationOffer;
-      } else {
-        this.transportationOffers.push(result.transportationOffer);
-      }
-      this.dataSource.data = this.transportationOffers; // Обновление данных таблицы
-      console.log('Dialog result:', result);
-    })
+    });
   }
 
   deleteTransportationOffer(id_offer: Number) {
     const isConfirmed = window.confirm("Delete item?");
-    if(isConfirmed){
-      this.transportationOfferService.deleteTransportationOffer(id_offer).subscribe((data) => {
-        this.transportationOffers = this.transportationOffers.filter(item => item.id_offer!=id_offer);
-      })
+    if (isConfirmed) {
+      // Удаление предложения на перевозку
+      this.transportationOfferService.deleteTransportationOffer(id_offer).pipe(
+        tap(() => {
+          // После удаления предложения на перевозку, удалить связанное cargo
+          const offerIndex = this.transportationOffers.findIndex(item => item.id_offer === id_offer);
+          const cargoToDelete = this.transportationOffers[offerIndex]?.cargo;
+
+          if (cargoToDelete) {
+            this.cargoService.deleteCargo(cargoToDelete.id_cargo).subscribe({
+              next: () => {
+                console.log("Cargo deleted successfully");
+              },
+              error: (err) => {
+                console.error("Error deleting cargo:", err);
+              }
+            });
+          }
+
+          // Обновить список предложений на перевозку, исключая удаленное
+          this.transportationOffers.splice(offerIndex, 1);
+          this.dataSource.data = [...this.transportationOffers]; // Обновление источника данных таблицы
+        })
+      ).subscribe({
+        error: (err) => {
+          console.error("Error deleting transportation offer:", err);
+        }
+      });
+      
       window.location.reload();
     }
-  }
+}
 
 }

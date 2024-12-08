@@ -14,7 +14,7 @@
         </mat-form-field>
   
         <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="dataTransportationOffer.client" placeholder="Client" [compareWith]="compareObjects">
+          <mat-select [(ngModel)]="dataTransportationOffer.client" placeholder="Client">
             <mat-option>
               <ngx-mat-select-search [formControl]="clientFilterCtrl"></ngx-mat-select-search>
             </mat-option>
@@ -73,7 +73,7 @@
         </mat-checkbox>
   
         <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="dataCargo.sender" placeholder="Sender" [compareWith]="compareObjects">
+          <mat-select [(ngModel)]="dataCargo.sender" placeholder="Sender">
             <mat-option>
               <ngx-mat-select-search [formControl]="senderFilterCtrl"></ngx-mat-select-search>
             </mat-option>
@@ -96,7 +96,7 @@
         </mat-form-field>
   
         <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="dataCargo.customs" placeholder="Customs" [compareWith]="compareObjects">
+          <mat-select [(ngModel)]="dataCargo.customs" placeholder="Customs">
             <mat-option>
               <ngx-mat-select-search [formControl]="customsFilterCtrl"></ngx-mat-select-search>
             </mat-option>
@@ -114,7 +114,7 @@
         </mat-form-field>
   
         <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="dataCargo.recipient" placeholder="Recipient" [compareWith]="compareObjects">
+          <mat-select [(ngModel)]="dataCargo.recipient" placeholder="Recipient">
             <mat-option>
               <ngx-mat-select-search [formControl]="recipientFilterCtrl"></ngx-mat-select-search>
             </mat-option>
