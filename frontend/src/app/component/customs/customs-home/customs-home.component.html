@@ -1,1 +1,46 @@
-<p>customs-home works!</p>
+<div>
+    <h1 style="text-align: center;"><strong>Customs</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchCustoms(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openCustomsDialog(customes)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_customs Column -->
+        <ng-container matColumnDef="id_customs">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let customes"> {{customes.id_customs}} </td>
+        </ng-container>
+        
+        <!-- name_customs Column -->
+        <ng-container matColumnDef="name_customs">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+          <td mat-cell *matCellDef="let customes"> {{customes.name_customs}} </td>
+        </ng-container>
+  
+        <!-- location_customs Column -->
+        <ng-container matColumnDef="location_customs">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Location </th>
+          <td mat-cell *matCellDef="let customes"> {{customes.location_customs}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let customes"> <button (click)="openCustomsDialog(customes)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let customes"> <button (click)="deleteCustoms(customes.id_customs)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let customs; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

@@ -83,6 +83,15 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Recipients</span>
             </a>
         </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="cargo/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-box"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Cargos</span>
+            </a>
+        </li>
 
         <!-- Admin buttons -->
         

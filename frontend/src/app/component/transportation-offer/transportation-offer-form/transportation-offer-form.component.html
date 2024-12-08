@@ -1,58 +1,145 @@
-<div class="container" style="background-color: #212529; width: 1000px; height: 700px;">
-    <div mat-dialog-title>
-        <h2 style="text-align: center; color: white"><strong>Transportation Offer Form</strong></h2>
+<div class="transportation-offer-dialog">
+    <div mat-dialog-title class="dialog-title">
+      <h2>Transportation Offer Form</h2>
     </div>
-    <div mat-dialog-content>
-        <div class="datePicker" style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field>
-                <mat-label>Choose a date</mat-label>
-                <input [(ngModel)]="data.date_offer" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div class="clientInput" style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field>
-                <!-- <mat-select [(ngModel)]="data.client">
-                    <mat-option *ngFor="let client of clients | async" [value]="client">
-                        {{client.name_client}}
-                    </mat-option>
-                </mat-select> -->
-
-                <mat-select [(ngModel)]="data.client" placeholder="Client" #singleSelect>
-                    <mat-option>
-                        <ngx-mat-select-search *ngIf="true" [formControl]="clientFilterCtrl" [preventHomeEndKeyPropagation]="true">
-                          <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
-                        </ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let client of filteredClients | async" [value]="client">
-                        {{client.name_client}}
-                      </mat-option>
-                </mat-select>
-
-            </mat-form-field>
-        </div>
-        <div class="locLoadInput" style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field>
-                <input [(ngModel)]="data.location_load_transportation_offer" matInput type="text" placeholder="Location load">
-                <mat-icon matSuffix fontIcon="download"></mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="locUnloadInput" style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field>
-                <input [(ngModel)]="data.location_unload_transportation_offer" matInput type="text" placeholder="Location unload">
-                <mat-icon matSuffix fontIcon="upload"></mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="freightInput" style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field>
-                <input [(ngModel)]="data.freight_transportation_offer" matInput type="number" placeholder="Freight">
-                <mat-icon matSuffix fontIcon="money"></mat-icon>
-            </mat-form-field>
-        </div>
+    <div mat-dialog-content class="dialog-content">
+      <!-- Transportation offer fields -->
+      <div class="form-section">
+        <h3>Transportation Details</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input [(ngModel)]="dataTransportationOffer.date_offer" matInput [matDatepicker]="transportationOfferDatePicker">
+          <mat-datepicker-toggle matIconSuffix [for]="transportationOfferDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #transportationOfferDatePicker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="dataTransportationOffer.client" placeholder="Client" [compareWith]="compareObjects">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="clientFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let client of filteredClients | async" [value]="client">
+              {{ client.name_client }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataTransportationOffer.freight_transportation_offer" matInput type="number" placeholder="Freight">
+          <mat-icon matSuffix>money</mat-icon>
+        </mat-form-field>
+      </div>
+  
+      <!-- Cargo fields -->
+      <div class="form-section">
+        <h3>Cargo Details</h3>
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.name_cargo" matInput type="text" placeholder="Name">
+          <mat-icon matSuffix>inventory_2</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.ldm_cargo" matInput type="number" placeholder="LDM">
+          <mat-icon matSuffix>design_services</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.price_cargo" matInput type="number" placeholder="Price">
+          <mat-icon matSuffix>sell</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.gross_cargo" matInput type="number" placeholder="Gross">
+          <mat-icon matSuffix>scale</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.max_height_cargo" matInput type="number" placeholder="Max Height">
+          <mat-icon matSuffix>height</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.size_cargo" matInput type="text" placeholder="Size">
+          <mat-icon matSuffix>view_in_ar</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.quantity_cargo" matInput type="number" placeholder="Quantity">
+          <mat-icon matSuffix>tag</mat-icon>
+        </mat-form-field>
+  
+        <mat-checkbox color="warn" (click)="changeValue(danger_cargo)" [(ngModel)]="dataCargo.danger_cargo">
+          Danger Cargo
+        </mat-checkbox>
+  
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="dataCargo.sender" placeholder="Sender" [compareWith]="compareObjects">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="senderFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let sender of filteredSenders | async" [value]="sender">
+              {{ sender.name_sender }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.location_load_cargo" matInput type="text" placeholder="Location Load">
+          <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Date Load</mat-label>
+          <input [(ngModel)]="dataCargo.date_load_cargo" matInput [matDatepicker]="loadCargoDatepicker">
+          <mat-datepicker-toggle matIconSuffix [for]="loadCargoDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #loadCargoDatepicker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="dataCargo.customs" placeholder="Customs" [compareWith]="compareObjects">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="customsFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let custom of filteredCustoms | async" [value]="custom">
+              {{ custom.name_customs }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Date Customs</mat-label>
+          <input [(ngModel)]="dataCargo.date_customs_cargo" matInput [matDatepicker]="customsCargoDatepicker">
+          <mat-datepicker-toggle matIconSuffix [for]="customsCargoDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #customsCargoDatepicker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="dataCargo.recipient" placeholder="Recipient" [compareWith]="compareObjects">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="recipientFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let recipient of filteredRecipients | async" [value]="recipient">
+              {{ recipient.name_recipient }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]="dataCargo.location_unload_cargo" matInput type="text" placeholder="Location Unload">
+          <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Date Unload</mat-label>
+          <input [(ngModel)]="dataCargo.date_unload_cargo" matInput [matDatepicker]="unloadCargoDatepicker">
+          <mat-datepicker-toggle matIconSuffix [for]="unloadCargoDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #unloadCargoDatepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
-    <div mat-dialog-actions align="center">
-        <button (click)="addOrEditTransportationOffer(data)" mat-flat-button [mat-dialog-close]="data">Submit</button>
-        <button mat-flat-button mat-dialog-close="true" color="warn">Cancel</button>
+    <div mat-dialog-actions align="end" class="dialog-actions">
+      <button mat-flat-button color="primary" (click)="addOrEditTransportationOffer(dataTransportationOffer, dataCargo)" [mat-dialog-close]="{transportationOffer: dataTransportationOffer, cargo: dataCargo}">Submit</button>
+      <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
     </div>
-</div>
+  </div>
+  

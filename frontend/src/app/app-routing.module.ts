@@ -13,6 +13,7 @@ import { ClientHomeComponent } from './component/client/client-home/client-home.
 import { CustomsHomeComponent } from './component/customs/customs-home/customs-home.component';
 import { SenderHomeComponent } from './component/sender/sender-home/sender-home.component';
 import { RecipientHomeComponent } from './component/recipient/recipient-home/recipient-home.component';
+import { CargoHomeComponent } from './component/cargo/cargo-home/cargo-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -36,6 +37,9 @@ const routes: Routes = [
 
   {path: "recipient/home", component: RecipientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "recipient", redirectTo: "recipient/home", pathMatch: "full"},
+
+  {path: "cargo/home", component: CargoHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "cargo", redirectTo: "cargo/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];

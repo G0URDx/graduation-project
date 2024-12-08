@@ -38,11 +38,9 @@ public class TransportationOffer {
     @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 
-    @Column(name = "location_load_transportation_offer", unique = false, nullable = false)
-    private String location_load_transportation_offer;
-
-    @Column(name = "location_unload_transportation_offer", unique = false, nullable = false)
-    private String location_unload_transportation_offer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cargo", nullable = false)
+    private Cargo cargo;
 
     @Column(name = "freight_transportation_offer", unique = false, nullable = false)
     private Double freight_transportation_offer;

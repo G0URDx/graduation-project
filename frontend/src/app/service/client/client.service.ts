@@ -24,7 +24,7 @@ export class ClientService {
     return this.http.put<Client>(BASE_URL + `/api/v1/client/${data.id_client}`, data);
   }
 
-  deleteClient(id_offer: Number) {
-    return this.http.delete<Client>(BASE_URL + `/api/v1/client/${id_offer}`);
+  deleteClient(id_client: Number) {
+    return this.http.delete<Client>(BASE_URL + `/api/v1/client/${id_client}`);
   }
 }

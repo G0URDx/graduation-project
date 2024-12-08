@@ -1,1 +1,46 @@
-<p>recipient-home works!</p>
+<div>
+    <h1 style="text-align: center;"><strong>Recipients</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchRecipient(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openRecipientDialog(recipient)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_recipient Column -->
+        <ng-container matColumnDef="id_recipient">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let recipient"> {{recipient.id_recipient}} </td>
+        </ng-container>
+        
+        <!-- name_recipient Column -->
+        <ng-container matColumnDef="name_recipient">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Name </th>
+          <td mat-cell *matCellDef="let recipient"> {{recipient.name_recipient}} </td>
+        </ng-container>
+  
+        <!-- location_recipient Column -->
+        <ng-container matColumnDef="location_recipient">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Location </th>
+          <td mat-cell *matCellDef="let recipient"> {{recipient.location_recipient}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let recipient"> <button (click)="openRecipientDialog(recipient)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let recipient"> <button (click)="deleteRecipient(recipient.id_recipient)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let recipients; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

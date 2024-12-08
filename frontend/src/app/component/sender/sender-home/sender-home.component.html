@@ -1,1 +1,46 @@
-<p>sender-home works!</p>
+<div>
+    <h1 style="text-align: center;"><strong>Senders</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchSender(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openSenderDialog(sender)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_sender Column -->
+        <ng-container matColumnDef="id_sender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let sender"> {{sender.id_sender}} </td>
+        </ng-container>
+        
+        <!-- name_sender Column -->
+        <ng-container matColumnDef="name_sender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Name </th>
+          <td mat-cell *matCellDef="let sender"> {{sender.name_sender}} </td>
+        </ng-container>
+  
+        <!-- location_sender Column -->
+        <ng-container matColumnDef="location_sender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Location </th>
+          <td mat-cell *matCellDef="let sender"> {{sender.location_sender}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let sender"> <button (click)="openSenderDialog(sender)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let sender"> <button (click)="deleteSender(sender.id_sender)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let senders; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

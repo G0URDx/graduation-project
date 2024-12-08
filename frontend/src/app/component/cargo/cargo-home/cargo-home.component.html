@@ -1,0 +1,116 @@
+<div>
+    <h1 style="text-align: center;"><strong>Cargos</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchCargo(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_cargo Column -->
+        <ng-container matColumnDef="id_cargo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let cargo"> {{cargo.id_cargo}} </td>
+        </ng-container>
+        
+        <!-- name_cargo Column -->
+        <ng-container matColumnDef="name_cargo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+          <td mat-cell *matCellDef="let cargo"> {{cargo.name_cargo}} </td>
+        </ng-container>
+
+        <!-- ldm_cargo Column -->
+        <ng-container matColumnDef="ldm_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by LDM"> LDM </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.ldm_cargo}} </td>
+        </ng-container>
+
+        <!-- price_cargo Column -->
+        <ng-container matColumnDef="price_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price"> Price </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.price_cargo}} </td>
+        </ng-container>
+
+        <!-- gross_cargo Column -->
+        <ng-container matColumnDef="gross_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by gross"> Gross </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.gross_cargo}} </td>
+        </ng-container>
+
+        <!-- max_height_cargo Column -->
+        <ng-container matColumnDef="max_height_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by max height"> Max height </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.max_height_cargo}} </td>
+        </ng-container>
+
+        <!-- size_cargo Column -->
+        <ng-container matColumnDef="size_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by size"> Size </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.size_cargo}} </td>
+        </ng-container>
+
+        <!-- quantity_cargo Column -->
+        <ng-container matColumnDef="quantity_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quantity"> Quantity </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.quantity_cargo}} </td>
+        </ng-container>
+
+        <!-- danger_cargo Column -->
+        <ng-container matColumnDef="danger_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by danger"> Danger </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.danger_cargo}} </td>
+        </ng-container>
+
+        <!-- sender Column -->
+        <ng-container matColumnDef="sender">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sender"> Sender </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.sender.name_sender}} </td>
+        </ng-container>
+
+        <!-- location_load_cargo Column -->
+        <ng-container matColumnDef="location_load_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location load"> Location load </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.location_load_cargo}} </td>
+        </ng-container>
+
+        <!-- date_load_cargo Column -->
+        <ng-container matColumnDef="date_load_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by load date"> Load date </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.date_load_cargo}} </td>
+        </ng-container>
+
+        <!-- customs Column -->
+        <ng-container matColumnDef="customs">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by customs"> Customs </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.customs.name_customs}} </td>
+        </ng-container>
+
+        <!-- date_customs_cargo Column -->
+        <ng-container matColumnDef="date_customs_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by customs date"> Customs date </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.date_customs_cargo}} </td>
+        </ng-container>
+
+        <!-- recipient Column -->
+        <ng-container matColumnDef="recipient">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by recipient"> Recipient </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.recipient.name_recipient}} </td>
+        </ng-container>
+
+        <!-- location_unload_cargo Column -->
+        <ng-container matColumnDef="location_unload_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location unload"> Location unload </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.location_unload_cargo}} </td>
+        </ng-container>
+
+        <!-- date_unload_cargo Column -->
+        <ng-container matColumnDef="date_unload_cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by unload date"> Unload date </th>
+            <td mat-cell *matCellDef="let cargo"> {{cargo.date_unload_cargo}} </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let recipients; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

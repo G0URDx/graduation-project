@@ -37,12 +37,9 @@ public class TransportationOfferServiceImplementation implements TransportationO
         if (transportationOfferObject != null) {
             transportationOfferObject.setDate_offer(transportationOffer.getDate_offer());
             transportationOfferObject.setClient(transportationOffer.getClient());
+            transportationOfferObject.setCargo(transportationOffer.getCargo());
             transportationOfferObject
                     .setFreight_transportation_offer(transportationOffer.getFreight_transportation_offer());
-            transportationOfferObject
-                    .setLocation_load_transportation_offer(transportationOffer.getLocation_load_transportation_offer());
-            transportationOfferObject.setLocation_unload_transportation_offer(
-                    transportationOffer.getLocation_unload_transportation_offer());
         }
         return transportationOfferRepository.save(transportationOfferObject);
     }
