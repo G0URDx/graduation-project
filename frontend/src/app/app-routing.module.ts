@@ -15,6 +15,9 @@ import { SenderHomeComponent } from './component/sender/sender-home/sender-home.
 import { RecipientHomeComponent } from './component/recipient/recipient-home/recipient-home.component';
 import { CargoHomeComponent } from './component/cargo/cargo-home/cargo-home.component';
 import { OrderHomeComponent } from './component/order/order-home/order-home.component';
+import { DriverHomeComponent } from './component/driver/driver-home/driver-home.component';
+import { VehicleHomeComponent } from './component/vehicle/vehicle-home/vehicle-home.component';
+import { TrailerHomeComponent } from './component/trailer/trailer-home/trailer-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -44,6 +47,15 @@ const routes: Routes = [
 
   {path: "order/home", component: OrderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "order", redirectTo: "order/home", pathMatch: "full"},
+
+  {path: "driver/home", component: DriverHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "driver", redirectTo: "driver/home", pathMatch: "full"},
+
+  {path: "vehicle/home", component: VehicleHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "vehicle", redirectTo: "vehicle/home", pathMatch: "full"},
+
+  {path: "trailer/home", component: TrailerHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "trailer", redirectTo: "trailer/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];

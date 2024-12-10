@@ -1,0 +1,70 @@
+<div>
+    <h1 style="text-align: center;"><strong>Drivers</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchDriver(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openDriverDialog(driver)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_driver Column -->
+        <ng-container matColumnDef="id_driver">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let driver"> {{driver.id_driver}} </td>
+        </ng-container>
+
+        <!-- name_native_driver Column -->
+        <ng-container matColumnDef="name_native_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by native name"> Native name </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.name_native_driver}} </td>
+        </ng-container>
+
+        <!-- name_english_driver Column -->
+        <ng-container matColumnDef="name_english_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by english name"> English name </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.name_english_driver}} </td>
+        </ng-container>
+
+        <!-- birthday_driver Column -->
+        <ng-container matColumnDef="birthday_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by birthday"> Birthday </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.birthday_driver}} </td>
+        </ng-container>
+
+        <!-- private_number_driver Column -->
+        <ng-container matColumnDef="private_number_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by private number"> Private number </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.private_number_driver}} </td>
+        </ng-container>
+
+        <!-- work_number_driver Column -->
+        <ng-container matColumnDef="work_number_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by work number"> Work number </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.work_number_driver}} </td>
+        </ng-container>
+
+        <!-- description_driver Column -->
+        <ng-container matColumnDef="description_driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by comments"> Description </th>
+            <td mat-cell *matCellDef="let driver"> {{driver.description_driver}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let driver"> <button (click)="openDriverDialog(driver)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let driver"> <button (click)="deleteDriver(driver.id_driver)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let drivers; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

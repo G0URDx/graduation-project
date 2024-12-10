@@ -102,6 +102,26 @@
             </a>
         </li>
 
+        <!-- Scheduler buttons -->
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="driver/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-person-biking"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Drivers</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="vehicle/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-truck-front"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Vehicles</span>
+            </a>
+        </li>
+
         <!-- Admin buttons -->
         
         <!-- Quit button -->

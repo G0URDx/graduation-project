@@ -1,0 +1,58 @@
+<div>
+    <h1 style="text-align: center;"><strong>Senders</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchVehicle(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openVehicleDialog(vehicle)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_vehicle Column -->
+        <ng-container matColumnDef="id_vehicle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.id_vehicle}} </td>
+        </ng-container>
+        
+        <!-- name_vehicle Column -->
+        <ng-container matColumnDef="name_vehicle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.name_vehicle}} </td>
+        </ng-container>
+
+        <!-- number_vehicle Column -->
+        <ng-container matColumnDef="number_vehicle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> Number </th>
+            <td mat-cell *matCellDef="let vehicle"> {{vehicle.number_vehicle}} </td>
+        </ng-container>
+
+        <!-- year_vehicle Column -->
+        <ng-container matColumnDef="year_vehicle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Year </th>
+            <td mat-cell *matCellDef="let vehicle"> {{vehicle.year_vehicle}} </td>
+        </ng-container>
+
+        <!-- eco_vehicle Column -->
+        <ng-container matColumnDef="eco_vehicle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by eco"> ECO </th>
+            <td mat-cell *matCellDef="let vehicle"> {{vehicle.eco_vehicle}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let vehicle"> <button (click)="openVehicleDialog(vehicle)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let vehicle"> <button (click)="deleteVehicle(vehicle.id_vehicle)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let vehicles; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>
