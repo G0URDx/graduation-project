@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +27,8 @@ public class TransportationOffer {
 
     @Id
     @Column(name = "id_transportation_offer")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transportation_offer_id_seq")
+    @SequenceGenerator(name = "transportation_offer_id_seq", sequenceName = "transportation_offer_id_seq", allocationSize = 1)
     private Long id_offer;
 
     @Column(name = "date_offer", unique = false, nullable = false)

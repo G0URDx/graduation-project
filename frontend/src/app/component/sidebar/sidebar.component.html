@@ -40,11 +40,20 @@
         <!-- Manager buttons -->
         <li class="sidebar-nav-item" *ngIf="isLogged">
             <a class="sidebar-nav-link" 
+                routerLink="/order/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-folder"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Orders</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
                 routerLink="/transportation-offer/home" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
-                    <i class="sidebar-link-icon fa-solid fa-solid fa-file"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Transportation offers</span>
+                    <i class="sidebar-link-icon fa-solid fa-file"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Offers</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged">

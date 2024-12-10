@@ -1,0 +1,82 @@
+<div>
+    <h1 style="text-align: center;"><strong>Orders</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchOrder(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openOrderDialog(order)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- id_order Column -->
+      <ng-container matColumnDef="id_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+        <td mat-cell *matCellDef="let order"> {{order.id_order}} </td>
+      </ng-container>
+      
+      <!-- client Column -->
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by client"> Client </th>
+        <td mat-cell *matCellDef="let order"> {{order.client.name_client}} </td>
+      </ng-container>
+
+      <!-- transportationOffer Column -->
+      <ng-container matColumnDef="transportationOffer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by transportation offer"> Offer ID </th>
+        <td mat-cell *matCellDef="let order"> {{order.transportationOffer.id_offer}} </td>
+      </ng-container>
+      
+      <!-- id_client_order Column -->
+      <ng-container matColumnDef="id_client_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id client order"> Client Order ID </th>
+        <td mat-cell *matCellDef="let order"> {{order.id_client_order}} </td>
+      </ng-container>
+
+      <!-- payment_terms_order Column -->
+      <ng-container matColumnDef="payment_terms_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by payment terms"> Payment terms </th>
+        <td mat-cell *matCellDef="let order"> {{order.payment_terms_order}} </td>
+      </ng-container>
+
+      <!-- freight_order Column -->
+      <ng-container matColumnDef="freight_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by freight"> Fraight </th>
+        <td mat-cell *matCellDef="let order"> {{order.freight_order}} </td>
+      </ng-container>
+
+      <!-- account_currency_order Column -->
+      <ng-container matColumnDef="account_currency_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by account currency"> Account currency </th>
+        <td mat-cell *matCellDef="let order"> {{order.account_currency_order}} </td>
+      </ng-container>
+
+      <!-- payment_currency_order Column -->
+      <ng-container matColumnDef="payment_currency_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by payment currency"> Payment currency </th>
+        <td mat-cell *matCellDef="let order"> {{order.payment_currency_order}} </td>
+      </ng-container>
+
+      <!-- description_order Column -->
+      <ng-container matColumnDef="description_order">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by description"> Description </th>
+        <td mat-cell *matCellDef="let order"> {{order.description_order}} </td>
+      </ng-container>
+
+      <!-- edit Column -->
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let order"> <button (click)="openOrderDialog(order)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+      </ng-container>
+
+      <!-- delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let transportationOffer"> <button (click)="deleteOrder(order.id_order)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let transportationOffers; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

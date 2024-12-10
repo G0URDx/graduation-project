@@ -62,14 +62,14 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
     description_client: '',
   }
   cargo: Cargo = {
-    id_cargo: 0,
+    id_cargo: null,
     name_cargo: '',
-    ldm_cargo: 0,
-    price_cargo: 0,
-    gross_cargo: 0,
-    max_height_cargo: 0,
+    ldm_cargo: null,
+    price_cargo: null,
+    gross_cargo: null,
+    max_height_cargo: null,
     size_cargo: '',
-    quantity_cargo: 0,
+    quantity_cargo: null,
     danger_cargo: false,
     sender: this.sender,
     location_load_cargo: '',
@@ -172,6 +172,6 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
       
       window.location.reload();
     }
-}
+  }
 
 }

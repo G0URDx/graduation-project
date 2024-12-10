@@ -5,13 +5,15 @@
     <div mat-dialog-content>
         <div class="nameInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.name_sender" matInput type="text" placeholder="Name">
+                <mat-label>Name</mat-label>
+                <input [(ngModel)]="data.name_sender" matInput type="text">
                 <mat-icon matSuffix fontIcon="face"></mat-icon>
             </mat-form-field>
         </div>
         <div class="locationInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.location_sender" matInput type="text" placeholder="Location">
+                <mat-label>Location</mat-label>
+                <input [(ngModel)]="data.location_sender" matInput type="text">
                 <mat-icon matSuffix fontIcon="location_on"></mat-icon>
             </mat-form-field>
         </div>

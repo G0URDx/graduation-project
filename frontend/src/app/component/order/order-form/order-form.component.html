@@ -1,0 +1,105 @@
+<div class="order-dialog">
+  <div mat-dialog-title class="dialog-title">
+    <h2>Order Form</h2>
+  </div>
+  <div mat-dialog-content class="dialog-content">
+    <!-- Левая секция -->
+    <div class="form-section">
+      <h3>Order Details</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Transportation offer</mat-label>
+        <mat-select
+          [(ngModel)]="dataOrder.transportationOffer"
+          (selectionChange)="onTransportationOfferChange($event)"
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="transportationOfferFilterCtrl"
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let transportationOffer of filteredTransportationOffers | async"
+            [value]="transportationOffer"
+          >
+            Id: {{ transportationOffer.id_offer }} | Client: {{ transportationOffer.client.name_client }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Client order ID</mat-label>
+        <input [(ngModel)]="dataOrder.id_client_order" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Payment terms</mat-label>
+        <mat-select [(ngModel)]="dataOrder.payment_terms_order">
+          <mat-option value="Prepayment">Prepayment</mat-option>
+          <mat-option value="Postpayment">Postpayment</mat-option>
+          <mat-option value="Credit">Credit</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Account currency</mat-label>
+        <mat-select [(ngModel)]="dataOrder.account_currency_order">
+          <mat-option value="BYN">BYN</mat-option>
+          <mat-option value="RUB">RUB</mat-option>
+          <mat-option value="USD">USD</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Payment currency</mat-label>
+        <mat-select [(ngModel)]="dataOrder.payment_currency_order">
+          <mat-option value="BYN">BYN</mat-option>
+          <mat-option value="RUB">RUB</mat-option>
+          <mat-option value="USD">USD</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea [(ngModel)]="dataOrder.description_order" matInput></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- Правая секция -->
+    <div class="info-section" *ngIf="selectedTransportationOffer">
+      <div class="transportation-offer-details">
+        <h3>Transportation Offer Details</h3>
+        <p><strong>Offer ID:</strong> {{ selectedTransportationOffer.id_offer }}</p>
+        <p><strong>Client:</strong> {{ selectedTransportationOffer.client.name_client }}</p>
+        <p><strong>Date:</strong> {{ selectedTransportationOffer.date_offer | date }}</p>
+        <p><strong>Freight:</strong> {{ selectedTransportationOffer.freight_transportation_offer }}</p>
+      </div>
+
+      <div class="cargo-details" *ngIf="selectedTransportationOffer.cargo">
+        <h3>Cargo Details</h3>
+        <p><strong>ID:</strong> {{ selectedTransportationOffer.cargo.id_cargo }}</p>
+        <p><strong>Name:</strong> {{ selectedTransportationOffer.cargo.name_cargo }}</p>
+        <p><strong>Weight (Gross):</strong> {{ selectedTransportationOffer.cargo.gross_cargo }} kg</p>
+        <p><strong>Max Height:</strong> {{ selectedTransportationOffer.cargo.max_height_cargo }} m</p>
+        <p><strong>Size:</strong> {{ selectedTransportationOffer.cargo.size_cargo }}</p>
+        <p><strong>Quantity:</strong> {{ selectedTransportationOffer.cargo.quantity_cargo }}</p>
+        <p><strong>Dangerous:</strong> {{ selectedTransportationOffer.cargo.danger_cargo ? 'Yes' : 'No' }}</p>
+        <p><strong>Sender:</strong> {{ selectedTransportationOffer.cargo.sender.name_sender }}</p>
+        <p><strong>Load Location:</strong> {{ selectedTransportationOffer.cargo.location_load_cargo }}</p>
+        <p><strong>Load Date:</strong> {{ selectedTransportationOffer.cargo.date_load_cargo | date }}</p>
+        <p><strong>Customs:</strong> {{ selectedTransportationOffer.cargo.customs.name_customs }}</p>
+        <p><strong>Customs date:</strong> {{ selectedTransportationOffer.cargo.date_customs_cargo | date }}</p>
+        <p><strong>Recipient:</strong> {{ selectedTransportationOffer.cargo.recipient.name_recipient }}</p>
+        <p><strong>Unload Location:</strong> {{ selectedTransportationOffer.cargo.location_unload_cargo }}</p>
+        <p><strong>Unload Date:</strong> {{ selectedTransportationOffer.cargo.date_unload_cargo | date }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end" class="dialog-actions">
+    <button mat-flat-button color="primary" (click)="addOrEditOrder(dataOrder, selectedTransportationOffer)" [mat-dialog-close]="{order: dataOrder, selectedTransportationOffer: selectedTransportationOffer}">Submit</button>
+    <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+  </div>
+</div>
+
+
+

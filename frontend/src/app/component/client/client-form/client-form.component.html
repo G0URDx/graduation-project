@@ -5,37 +5,43 @@
     <div mat-dialog-content>
         <div class="nameInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.name_client" matInput type="text" placeholder="Name">
+                <mat-label>Name</mat-label>
+                <input [(ngModel)]="data.name_client" matInput type="text">
                 <mat-icon matSuffix fontIcon="face"></mat-icon>
             </mat-form-field>
         </div>
         <div class="locationInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.location_client" matInput type="text" placeholder="Location">
+                <mat-label>Location</mat-label>
+                <input [(ngModel)]="data.location_client" matInput type="text">
                 <mat-icon matSuffix fontIcon="location_on"></mat-icon>
             </mat-form-field>
         </div>
         <div class="workNumberInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.work_number_client" matInput type="text" placeholder="Work number">
+                <mat-label>Work number</mat-label>
+                <input [(ngModel)]="data.work_number_client" matInput type="text">
                 <mat-icon matSuffix fontIcon="call"></mat-icon>
             </mat-form-field>
         </div>
         <div class="taxNumberInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.tax_number_client" matInput type="text" placeholder="Tax number">
+                <mat-label>Tax number</mat-label>
+                <input [(ngModel)]="data.tax_number_client" matInput type="text">
                 <mat-icon matSuffix fontIcon="account_balance"></mat-icon>
             </mat-form-field>
         </div>
         <div class="employeeInput" style="display: flex; justify-content: center; align-items: center;">
             <mat-form-field style="width: 400px;">
-                <input [(ngModel)]="data.employee_client" matInput type="text" placeholder="Employee">
+                <mat-label>Employee</mat-label>
+                <input [(ngModel)]="data.employee_client" matInput type="text">
                 <mat-icon matSuffix fontIcon="support_agent"></mat-icon>
             </mat-form-field>
         </div>
         <div class="descriptionInput" style="display: flex; justify-content: center; align-items: center; width: 500xp;">
             <mat-form-field style="width: 400px;">
-                <textarea [(ngModel)]="data.description_client" matInput type="text" placeholder="Description"></textarea>
+                <mat-label>Description</mat-label>
+                <textarea [(ngModel)]="data.description_client" matInput type="text"></textarea>
             </mat-form-field>
         </div>
     </div>

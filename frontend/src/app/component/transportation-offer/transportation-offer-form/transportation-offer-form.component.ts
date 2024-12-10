@@ -82,82 +82,82 @@ export class TransportationOfferFormComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // Проверка переданных данных для корректности
-  if (!this.dataTransportationOffer.client) {
-    this.dataTransportationOffer.client = { id_client: 0, name_client: '', location_client: '', work_number_client: '', tax_number_client: '', employee_client: '', description_client: '' };
-  }
-  if (!this.dataCargo.sender) {
-    this.dataCargo.sender = { id_sender: 0, name_sender: '', location_sender: '' };
-  }
-  if (!this.dataCargo.customs) {
-    this.dataCargo.customs = { id_customs: 0, name_customs: '', location_customs: '' };
-  }
-  if (!this.dataCargo.recipient) {
-    this.dataCargo.recipient = { id_recipient: 0, name_recipient: '', location_recipient: '' };
-  }
-
-  // Fetching all clients for Mat-Select-Search
-  this.clientService.fetchAllClient().subscribe((clientData) => {
-    this.clients = clientData;
-    this.filteredClients.next(this.clients.slice());
-    // Set the selected client if editing an existing transportation offer
-    if (this.dataTransportationOffer.client) {
-      const selectedClient = this.clients.find(client => client.id_client === this.dataTransportationOffer.client.id_client);
-      this.dataTransportationOffer.client = selectedClient || this.dataTransportationOffer.client;
+    if (!this.dataTransportationOffer.client) {
+      this.dataTransportationOffer.client = { id_client: 0, name_client: '', location_client: '', work_number_client: '', tax_number_client: '', employee_client: '', description_client: '' };
     }
-  });
-
-  // Fetching all senders for Mat-Select-Search
-  this.senderService.fetchAllSenders().subscribe((senderData) => {
-    this.senders = senderData;
-    this.filteredSenders.next(this.senders.slice());
-    // Set the selected sender if editing an existing transportation offer
-    if (this.dataCargo.sender) {
-      const selectedSender = this.senders.find(sender => sender.id_sender === this.dataCargo.sender.id_sender);
-      this.dataCargo.sender = selectedSender || this.dataCargo.sender;
+    if (!this.dataCargo.sender) {
+      this.dataCargo.sender = { id_sender: 0, name_sender: '', location_sender: '' };
     }
-  });
-
-  // Fetching all customs for Mat-Select-Search
-  this.customsService.fetchAllCustoms().subscribe((customsData) => {
-    this.customs = customsData;
-    this.filteredCustoms.next(this.customs.slice());
-    // Set the selected customs if editing an existing transportation offer
-    if (this.dataCargo.customs) {
-      const selectedCustom = this.customs.find(custom => custom.id_customs === this.dataCargo.customs.id_customs);
-      this.dataCargo.customs = selectedCustom || this.dataCargo.customs;
+    if (!this.dataCargo.customs) {
+      this.dataCargo.customs = { id_customs: 0, name_customs: '', location_customs: '' };
     }
-  });
-
-  // Fetching all recipients for Mat-Select-Search
-  this.recipientService.fetchAllRecipients().subscribe((recipientData) => {
-    this.recipients = recipientData;
-    this.filteredRecipients.next(this.recipients.slice());
-    // Set the selected recipient if editing an existing transportation offer
-    if (this.dataCargo.recipient) {
-      const selectedRecipient = this.recipients.find(recipient => recipient.id_recipient === this.dataCargo.recipient.id_recipient);
-      this.dataCargo.recipient = selectedRecipient || this.dataCargo.recipient;
+    if (!this.dataCargo.recipient) {
+      this.dataCargo.recipient = { id_recipient: 0, name_recipient: '', location_recipient: '' };
     }
-  });
 
-  // Subscription to client filter changes
-  this.clientFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-    this.filterClients();
-  });
+    // Fetching all clients for Mat-Select-Search
+    this.clientService.fetchAllClient().subscribe((clientData) => {
+      this.clients = clientData;
+      this.filteredClients.next(this.clients.slice());
+      // Set the selected client if editing an existing transportation offer
+      if (this.dataTransportationOffer.client) {
+        const selectedClient = this.clients.find(client => client.id_client === this.dataTransportationOffer.client.id_client);
+        this.dataTransportationOffer.client = selectedClient || this.dataTransportationOffer.client;
+      }
+    });
 
-  // Subscription to sender filter changes
-  this.senderFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-    this.filterSenders();
-  });
+    // Fetching all senders for Mat-Select-Search
+    this.senderService.fetchAllSenders().subscribe((senderData) => {
+      this.senders = senderData;
+      this.filteredSenders.next(this.senders.slice());
+      // Set the selected sender if editing an existing transportation offer
+      if (this.dataCargo.sender) {
+        const selectedSender = this.senders.find(sender => sender.id_sender === this.dataCargo.sender.id_sender);
+        this.dataCargo.sender = selectedSender || this.dataCargo.sender;
+      }
+    });
 
-  // Subscription to customs filter changes
-  this.customsFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-    this.filterCustoms();
-  });
+    // Fetching all customs for Mat-Select-Search
+    this.customsService.fetchAllCustoms().subscribe((customsData) => {
+      this.customs = customsData;
+      this.filteredCustoms.next(this.customs.slice());
+      // Set the selected customs if editing an existing transportation offer
+      if (this.dataCargo.customs) {
+        const selectedCustom = this.customs.find(custom => custom.id_customs === this.dataCargo.customs.id_customs);
+        this.dataCargo.customs = selectedCustom || this.dataCargo.customs;
+      }
+    });
 
-  // Subscription to recipient filter changes
-  this.recipientFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-    this.filterRecipients();
-  });
+    // Fetching all recipients for Mat-Select-Search
+    this.recipientService.fetchAllRecipients().subscribe((recipientData) => {
+      this.recipients = recipientData;
+      this.filteredRecipients.next(this.recipients.slice());
+      // Set the selected recipient if editing an existing transportation offer
+      if (this.dataCargo.recipient) {
+        const selectedRecipient = this.recipients.find(recipient => recipient.id_recipient === this.dataCargo.recipient.id_recipient);
+        this.dataCargo.recipient = selectedRecipient || this.dataCargo.recipient;
+      }
+    });
+
+    // Subscription to client filter changes
+    this.clientFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.filterClients();
+    });
+
+    // Subscription to sender filter changes
+    this.senderFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.filterSenders();
+    });
+
+    // Subscription to customs filter changes
+    this.customsFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.filterCustoms();
+    });
+
+    // Subscription to recipient filter changes
+    this.recipientFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+      this.filterRecipients();
+    });
   }
 
   addOrEditTransportationOffer(transportationOffer: TransportationOffer, cargo: Cargo) {
@@ -169,6 +169,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
           this.transportationOfferService.updateTransportationOffer(transportationOffer).subscribe({
             next:(dataTransportationOffer) => {
               console.log("Transportation offer created Successfully")
+              window.location.reload();
             },
             error:(err) => {
               console.log(err);
@@ -187,6 +188,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
           this.transportationOfferService.createTransportationOffer(transportationOffer).subscribe({
             next:(dataTransportationOffer) => {
               console.log("Transportation offer created Successfully")
+              window.location.reload();
             },
             error:(err) => {
               console.log(err);

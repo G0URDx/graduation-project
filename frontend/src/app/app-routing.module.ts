@@ -14,6 +14,7 @@ import { CustomsHomeComponent } from './component/customs/customs-home/customs-h
 import { SenderHomeComponent } from './component/sender/sender-home/sender-home.component';
 import { RecipientHomeComponent } from './component/recipient/recipient-home/recipient-home.component';
 import { CargoHomeComponent } from './component/cargo/cargo-home/cargo-home.component';
+import { OrderHomeComponent } from './component/order/order-home/order-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -40,6 +41,9 @@ const routes: Routes = [
 
   {path: "cargo/home", component: CargoHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
   {path: "cargo", redirectTo: "cargo/home", pathMatch: "full"},
+
+  {path: "order/home", component: OrderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "order", redirectTo: "order/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},
 ];
