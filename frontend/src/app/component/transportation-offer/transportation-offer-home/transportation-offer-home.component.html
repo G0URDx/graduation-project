@@ -8,50 +8,69 @@
     <button (click)="openTransportationOfferDialog(transportationOffer)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <!-- id_offer Column -->
+      <!-- ID Column -->
       <ng-container matColumnDef="id_offer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.id_offer}} </td>
       </ng-container>
-      
-      <!-- date_offer Column -->
+    
+      <!-- Date Column -->
       <ng-container matColumnDef="date_offer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Offer created </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer Date </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.date_offer}} </td>
       </ng-container>
-
-      <!-- client Column -->
+    
+      <!-- Client Column -->
       <ng-container matColumnDef="client">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by client"> Client </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.client.name_client}} </td>
       </ng-container>
-      
-      <!-- cargo Column -->
+    
+      <!-- Cargo Column -->
       <ng-container matColumnDef="cargo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cargo"> Cargo ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.cargo.id_cargo}} </td>
       </ng-container>
-
-      <!-- freight_transportation_offer Column -->
+    
+      <!-- Freight Column -->
       <ng-container matColumnDef="freight_transportation_offer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fraight"> Fraight </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Freight </th>
         <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.freight_transportation_offer}} </td>
       </ng-container>
-
-      <!-- edit Column -->
+    
+      <!-- Edit Column -->
       <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let transportationOffer"> <button (click)="openTransportationOfferDialog(transportationOffer)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let transportationOffer">
+          <button mat-button (click)="openTransportationOfferDialog(transportationOffer)">Edit</button>
+        </td>
+      </ng-container>
+    
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let transportationOffer">
+          <button mat-button (click)="deleteTransportationOffer(transportationOffer.id_offer)" color="warn">Delete</button>
+        </td>
       </ng-container>
 
-      <!-- delete Column -->
-      <ng-container matColumnDef="delete">
+      <!-- Create Order Column -->
+      <ng-container matColumnDef="createOrder">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let transportationOffer"> <button (click)="deleteTransportationOffer(transportationOffer.id_offer)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        <td mat-cell *matCellDef="let transportationOffer">
+          <button mat-button color="primary" 
+                  *ngIf="!transportationOffer.hasOrder" 
+                  (click)="openOrderDialog(transportationOffer)">
+            Create order
+          </button>
+        </td>
       </ng-container>
-      
+    
+      <!-- Rows -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let transportationOffers; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let transportationOffer; columns: displayedColumns;"
+          [ngClass]="{'highlight-row': !transportationOffer.hasOrder}">
+      </tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>

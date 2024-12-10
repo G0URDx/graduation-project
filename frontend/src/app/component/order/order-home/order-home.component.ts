@@ -135,19 +135,30 @@ export class OrderHomeComponent implements AfterViewInit {
   openOrderDialog(order: Order): void {
     const dialogRef = this.dialog.open(OrderFormComponent, {
       data: {
-        order: { ...order }, // Передача копии объекта
+        order: { ...order },
+        transportationOffer: { ...order.transportationOffer }
       }
     });
   }
 
   deleteOrder(id_order: Number) {
-    const isConfirmed = window.confirm("Delete item?");
-    if(isConfirmed){
-      this.orderService.deleteOrder(id_order).subscribe((data) => {
-        this.orders = this.orders.filter(item => item.id_order!=id_order);
-      })
-      window.location.reload();
+    const isConfirmed = window.confirm("Are you sure you want to delete this item?");
+    if (isConfirmed) {
+      console.log("Deleting order with id:", id_order);
+      this.orderService.deleteOrder(id_order).subscribe({
+        next: () => {
+          // Удаляем локально, чтобы не перезагружать страницу
+          this.orders = this.orders.filter(order => order.id_order !== id_order);
+          this.dataSource.data = this.orders; // Обновляем источник данных таблицы
+          alert("Order deleted successfully");
+        },
+        error: (err) => {
+          console.error("Error deleting order:", err);
+          alert("Failed to delete order. Please try again.");
+        }
+      });
     }
   }
+  
 
 }

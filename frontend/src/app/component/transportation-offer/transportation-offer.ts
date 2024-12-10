@@ -7,4 +7,5 @@ export interface TransportationOffer {
     client: Client;
     cargo: Cargo;
     freight_transportation_offer: Number;
+    hasOrder?: boolean;
 }

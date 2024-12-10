@@ -1,185 +1,143 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatOption } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions, MAT_DIALOG_DATA, } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatOption } from '@angular/material/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { TransportationOffer } from '../../transportation-offer/transportation-offer';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
+import { TransportationOffer } from '../../transportation-offer/transportation-offer';
 import { Order } from '../order';
 import { OrderService } from '../../../service/order/order.service';
 import { TransportationOfferService } from '../../../service/transportation-offer/transportation-offer.service';
-import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-order-form',
   standalone: true,
-  imports: [MatDialogModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatFormFieldModule, MatInputModule, MatIconModule, 
-    MatDatepickerModule, MatButtonModule, CommonModule, FormsModule, MatSelect, MatOption, NgxMatSelectSearchModule, ReactiveFormsModule, MatCardModule],
+  imports: [
+    MatDialogModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    CommonModule,
+    FormsModule,
+    MatSelect,
+    MatOption,
+    NgxMatSelectSearchModule,
+    ReactiveFormsModule,
+    MatCardModule,
+  ],
   templateUrl: './order-form.component.html',
-  styleUrl: './order-form.component.scss'
+  styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent implements AfterViewInit {
-
   readonly dialogRef = inject(MatDialogRef<OrderFormComponent>);
   readonly dialogData = inject<any>(MAT_DIALOG_DATA);
 
-  dataOrder: Order = this.dialogData.order;
+  dataOrder: Order = this.dialogData.order || {};
+  selectedTransportationOffer: TransportationOffer | null = this.dialogData.transportationOffer || null;
 
-  // Mat-Select-Search variables for Order
   transportationOffers: TransportationOffer[] = [];
-  public transportationOfferFilterCtrl: FormControl<string> = new FormControl<string>('', {nonNullable: true});
-  public filteredTransportationOffers: ReplaySubject<TransportationOffer[]> = new ReplaySubject<TransportationOffer[]>(1);
-  // End of Mat-Select-Search variables for Order
+  transportationOfferFilterCtrl: FormControl<string> = new FormControl<string>('', { nonNullable: true });
+  filteredTransportationOffers: ReplaySubject<TransportationOffer[]> = new ReplaySubject<TransportationOffer[]>(1);
 
-  // Mat-Select-Search settings
-  protected _onDestroy = new Subject<void>();
+  private _onDestroy = new Subject<void>();
+
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
-  // End of Mat-Select-Search settings
 
   constructor(
     private orderService: OrderService,
-    private transportationOfferService: TransportationOfferService,
+    private transportationOfferService: TransportationOfferService
   ) {}
 
   ngAfterViewInit(): void {
-    if (!this.dataOrder.transportationOffer) {
-      this.dataOrder.transportationOffer = { 
-        id_offer: 0,
-        date_offer: new Date(0),
-        client: { 
-          id_client: 0, 
-          name_client: '',
-          location_client: '', 
-          work_number_client: '', 
-          tax_number_client: '', 
-          employee_client: '', 
-          description_client: '' 
-        }, 
-        cargo: {
-          id_cargo: 0,
-          name_cargo: '',
-          ldm_cargo: 0,
-          price_cargo: 0,
-          gross_cargo: 0,
-          max_height_cargo: 0,
-          size_cargo: '',
-          quantity_cargo: 0,
-          danger_cargo: false,
-          sender: {
-            id_sender: 0,
-            name_sender: '',
-            location_sender: ''
-          },
-          location_load_cargo: '',
-          date_load_cargo: new Date(0),
-          customs: {
-            id_customs: 0,
-            name_customs: '',
-            location_customs: ''
-          },
-          date_customs_cargo: new Date(0),
-          recipient: {
-            id_recipient: 0,
-            name_recipient: '',
-            location_recipient: ''
-          },
-          location_unload_cargo: '',
-          date_unload_cargo: new Date(0)
-        },
-        freight_transportation_offer: 0
-      };
-    }
-  
-    // Fetching all transportation offers for Mat-Select-Search
-    this.transportationOfferService.fetchAllTransportationOffers().subscribe((transportationOfferData) => {
-      this.transportationOffers = transportationOfferData;
+    // Fetch transportation offers
+    this.transportationOfferService.fetchAllTransportationOffers().subscribe((offers) => {
+      this.transportationOffers = offers;
       this.filteredTransportationOffers.next(this.transportationOffers.slice());
-      
-      if (this.dataOrder.transportationOffer) {
+
+      // Set selected offer if available
+      if (this.selectedTransportationOffer) {
         const selectedOffer = this.transportationOffers.find(
-          offer => offer.id_offer === this.dataOrder.transportationOffer.id_offer
+          (offer) => offer.id_offer === this.selectedTransportationOffer?.id_offer
         );
-        
         if (selectedOffer) {
           this.selectedTransportationOffer = selectedOffer;
-          this.dataOrder.transportationOffer = selectedOffer; // Обновляем данные
+          this.dataOrder.transportationOffer = selectedOffer;
         }
       }
     });
-  
+
+    // Filter transportation offers on input change
     this.transportationOfferFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
       this.filterTransportationOffers();
     });
   }
-  
 
   addOrEditOrder(order: Order, transportationOffer: TransportationOffer) {
     this.dataOrder.client = transportationOffer.client;
-    this.dataOrder.freight_order = transportationOffer.freight_transportation_offer
-    if(order.id_order !== 0) {
+    this.dataOrder.freight_order = transportationOffer.freight_transportation_offer;
+    
+    if (!this.dataOrder.id_order) {
+      this.dataOrder.id_order = 0; // Установите default значение, если id_order не существует
+    }
+  
+    if(this.dataOrder.id_order !== 0) {
       this.orderService.updateOrder(order).subscribe({
         next:(dataOrder) => {
-          console.log("Order update Successfully")
+          console.log("Order updated successfully");
+          window.location.reload();
         },
         error:(err) => {
-          console.log(err);
+          console.error("Error updating order:", err);
+          alert("Unable to update order. Please check the data and try again.");
         }
-      })
+      });
     } else {
       this.orderService.createOrder(order).subscribe({
         next:(dataOrder) => {
-          console.log("Order created Successfully")
+          console.log("Order created successfully");
+          window.location.reload();
         },
         error:(err) => {
-          console.log(err);
+          console.error("Error creating order:", err);
+          alert("Unable to create order. Please check the data and try again.");
         }
-      })
+      });
     }
   }
-
-  // Filter method
-  protected filterItems<T>(
-    items: T[] | undefined,
-    filterCtrl: { value: string | null },
-    filteredItems: { next: (value: T[]) => void },
-    nameField: keyof T
-  ) {
-    if (!items) {
-      return;
-    }
   
-    let search = filterCtrl.value;
+
+  onTransportationOfferChange(event: MatSelectChange): void {
+    this.selectedTransportationOffer = event.value;
+  }
+
+  private filterTransportationOffers() {
+    const search = this.transportationOfferFilterCtrl.value?.toLowerCase() || '';
     if (!search) {
-      filteredItems.next(items.slice());
-      return;
+      this.filteredTransportationOffers.next(this.transportationOffers.slice());
     } else {
-      search = search.toLowerCase();
+      this.filteredTransportationOffers.next(
+        this.transportationOffers.filter((offer) =>
+          offer.id_offer.toString().toLowerCase().includes(search)
+        )
+      );
     }
-  
-    filteredItems.next(
-      items.filter((item) => {
-        const name = (item[nameField] as unknown as string).toLowerCase();
-        return name.indexOf(search) > -1;
-      })
-    );
   }
-  // End of Filter method
 
-  // Custom filter methods
-  protected filterTransportationOffers() {
-    this.filterItems(this.transportationOffers, this.transportationOfferFilterCtrl, this.filteredTransportationOffers, 'id_offer');
-  }
-  // End of Custom filter methods
-
-  selectedTransportationOffer: TransportationOffer | null = null;
-    onTransportationOfferChange(event: MatSelectChange): void {
-      this.selectedTransportationOffer = event.value;
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 }

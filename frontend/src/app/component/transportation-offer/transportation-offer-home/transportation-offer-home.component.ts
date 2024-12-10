@@ -18,17 +18,20 @@ import { Customs } from '../../customs/customs';
 import { Recipient } from '../../recipient/recipient';
 import { CargoService } from '../../../service/cargo/cargo.service';
 import { tap } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { OrderService } from '../../../service/order/order.service';
+import { OrderFormComponent } from '../../order/order-form/order-form.component';
 
 @Component({
   selector: 'app-transportation-offer-home',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule, MatSortModule, MatPaginatorModule, CommonModule],
   templateUrl: './transportation-offer-home.component.html',
   styleUrl: './transportation-offer-home.component.scss'
 })
 export class TransportationOfferHomeComponent implements AfterViewInit  {
 
-  displayedColumns: string[] = ['id_offer', 'date_offer', 'client', 'cargo', 'freight_transportation_offer', 'edit', 'delete'];
+  displayedColumns: string[] = ['id_offer', 'date_offer', 'client', 'cargo', 'freight_transportation_offer', 'createOrder', 'edit', 'delete'];
   dataSource = new MatTableDataSource<TransportationOffer>();
   transportationOffers: TransportationOffer[]=[];
   filteredTransportationOffers: TransportationOffer[]=[];
@@ -94,15 +97,25 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   readonly dialog = inject(MatDialog);
 
-  constructor(private transportationOfferService: TransportationOfferService, private cargoService: CargoService) {}
+  constructor(private transportationOfferService: TransportationOfferService, private cargoService: CargoService, private orderService: OrderService) {}
 
   ngAfterViewInit(): void {
-    this.transportationOfferService.fetchAllTransportationOffers().subscribe((data) => {
-      this.transportationOffers = data;
-      this.dataSource = new MatTableDataSource<TransportationOffer>(data); // Input data
-      this.dataSource.sort = this.sort; // Sorting
-      this.dataSource.paginator = this.paginator; // Paginator
-    })
+    this.transportationOfferService.fetchAllTransportationOffers().subscribe((offers) => {
+      // Fetch all orders to check for related offers
+      this.orderService.fetchAllOrders().subscribe((orders) => {
+        const orderOfferIds = orders.map(order => order.transportationOffer.id_offer);
+
+        // Mark offers as linked or not linked
+        this.transportationOffers = offers.map(offer => ({
+          ...offer,
+          hasOrder: orderOfferIds.includes(offer.id_offer),
+        }));
+
+        this.dataSource = new MatTableDataSource<TransportationOffer>(this.transportationOffers);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
+    });
   }
 
   searchTransportationOffer(input: any) {
@@ -138,6 +151,23 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
       }
     });
   }
+
+  openOrderDialog(transportationOffer: TransportationOffer): void {
+    const dialogRef = this.dialog.open(OrderFormComponent, {
+      data: {
+        transportationOffer: { ...transportationOffer }, // Передача копии предложения
+      },
+      width: '800px'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.order) {
+        transportationOffer.hasOrder = true; // Устанавливаем флаг, что заказ создан
+        console.log('Order created successfully:', result.order);
+      }
+    });
+  }
+  
 
   deleteTransportationOffer(id_offer: Number) {
     const isConfirmed = window.confirm("Delete item?");
