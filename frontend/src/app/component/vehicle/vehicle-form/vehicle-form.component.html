@@ -1,1 +1,31 @@
-<p>vehicle-form works!</p>
+<div class="container" style="background-color: #212529; width: 500px; height: 700px;">
+    <div mat-dialog-title>
+        <h2 style="text-align: center; color: white"><strong>Vehicle Form</strong></h2>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field style="width: 400px;">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="data.name_vehicle" matInput type="text">
+            <mat-icon matSuffix fontIcon="local_shipping"></mat-icon>
+        </mat-form-field>
+        <mat-form-field style="width: 400px;">
+            <mat-label>Number</mat-label>
+            <input [(ngModel)]="data.number_vehicle" matInput type="text">
+            <mat-icon matSuffix fontIcon="pin"></mat-icon>
+        </mat-form-field>
+        <mat-form-field style="width: 400px;">
+            <mat-label>Year</mat-label>
+            <input [(ngModel)]="data.year_vehicle" matInput type="text">
+            <mat-icon matSuffix fontIcon="event_available"></mat-icon>
+        </mat-form-field>
+        <mat-form-field style="width: 400px;">
+            <mat-label>ECO</mat-label>
+            <input [(ngModel)]="data.eco_vehicle" matInput type="text">
+            <mat-icon matSuffix fontIcon="eco"></mat-icon>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="center">
+        <button (click)="addOrEditVehicle(data)" mat-flat-button [mat-dialog-close]="data">Submit</button>
+        <button mat-flat-button mat-dialog-close="true" color="warn">Cancel</button>
+    </div>
+</div>

@@ -1,9 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Trailer } from '../../component/trailer/trailer';
+import { Observable } from 'rxjs';
+
+const BASE_URL = ["http://localhost:8080"]
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrailerService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  fetchAllTrailers():Observable<Trailer[]> {
+    return this.http.get<Trailer[]>(BASE_URL + `/api/v1/trailer`);
+  }
+
+  createTrailer(data: Trailer) {
+    return this.http.post<Trailer>(BASE_URL + `/api/v1/trailer`, data);
+  }
+
+  updateTrailer(data: Trailer) {
+    return this.http.put<Trailer>(BASE_URL + `/api/v1/trailer/${data.id_trailer}`, data);
+  }
+
+  deleteTrailer(id_trailer: Number) {
+    return this.http.delete<Trailer>(BASE_URL + `/api/v1/trailer/${id_trailer}`);
+  }
 }

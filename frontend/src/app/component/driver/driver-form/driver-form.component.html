@@ -1,1 +1,42 @@
-<p>driver-form works!</p>
+<div class="container" style="background-color: #212529; width: 500px; height: 700px;">
+    <div mat-dialog-title>
+        <h2 style="text-align: center; color: white"><strong>Driver Form</strong></h2>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill">
+            <mat-label>Native name</mat-label>
+            <input [(ngModel)]="data.name_native_driver" matInput type="text">
+            <mat-icon matSuffix fontIcon="translate"></mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>English name</mat-label>
+            <input [(ngModel)]="data.name_english_driver" matInput type="text">
+            <mat-icon matSuffix fontIcon="language_us"></mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Date offer</mat-label>
+            <input [(ngModel)]="data.birthday_driver" matInput [matDatepicker]="DatePicker">
+            <mat-datepicker-toggle matIconSuffix [for]="DatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #DatePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Private number</mat-label>
+            <input [(ngModel)]="data.private_number_driver" matInput type="text">
+            <mat-icon matSuffix fontIcon="call"></mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Work number</mat-label>
+            <input [(ngModel)]="data.work_number_driver" matInput type="text">
+            <mat-icon matSuffix fontIcon="call"></mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <input [(ngModel)]="data.description_driver" matInput type="text">
+            <mat-icon matSuffix fontIcon="description"></mat-icon>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="center">
+        <button (click)="addOrEditDriver(data)" mat-flat-button [mat-dialog-close]="data">Submit</button>
+        <button mat-flat-button mat-dialog-close="true" color="warn">Cancel</button>
+    </div>
+</div>

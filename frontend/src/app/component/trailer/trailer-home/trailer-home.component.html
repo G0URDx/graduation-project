@@ -1,1 +1,52 @@
-<p>trailer-home works!</p>
+<div>
+    <h1 style="text-align: center;"><strong>Trailers</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchTrailer(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openTrailerDialog(trailer)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_trailer Column -->
+        <ng-container matColumnDef="id_trailer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let trailer"> {{trailer.id_trailer}} </td>
+        </ng-container>
+        
+        <!-- name_trailer Column -->
+        <ng-container matColumnDef="name_trailer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date"> Name </th>
+          <td mat-cell *matCellDef="let trailer"> {{trailer.name_trailer}} </td>
+        </ng-container>
+  
+        <!-- number_trailer Column -->
+        <ng-container matColumnDef="number_trailer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Number </th>
+          <td mat-cell *matCellDef="let trailer"> {{trailer.number_trailer}} </td>
+        </ng-container>
+
+        <!-- year_trailer Column -->
+        <ng-container matColumnDef="year_trailer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by location"> Year </th>
+            <td mat-cell *matCellDef="let trailer"> {{trailer.year_trailer}} </td>
+          </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let trailer"> <button (click)="openTrailerDialog(trailer)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let trailer"> <button (click)="deleteTrailer(trailer.id_trailer)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let trailer; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

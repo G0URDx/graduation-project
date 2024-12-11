@@ -108,7 +108,7 @@
                 routerLink="driver/home" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
-                    <i class="sidebar-link-icon fa-solid fa-person-biking"></i>
+                    <i class="sidebar-link-icon fa-solid fa-user-gear"></i>
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Drivers</span>
             </a>
         </li>
@@ -119,6 +119,15 @@
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-truck-front"></i>
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Vehicles</span>
+            </a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged">
+            <a class="sidebar-nav-link" 
+                routerLink="trailer/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-trailer"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Trailers</span>
             </a>
         </li>
 
