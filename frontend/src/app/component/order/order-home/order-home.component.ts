@@ -25,7 +25,7 @@ import { OrderFormComponent } from '../order-form/order-form.component';
 })
 export class OrderHomeComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id_order', 'client', 'transportationOffer', 'id_client_order', 'payment_terms_order', 'freight_order', 'account_currency_order',
+  displayedColumns: string[] = ['id_order', 'name_manager', 'client', 'transportationOffer', 'id_client_order', 'payment_terms_order', 'freight_order', 'account_currency_order',
     'payment_currency_order', 'description_order', 'edit', 'delete'];
   dataSource = new MatTableDataSource<Order>();
   orders: Order[]=[];
@@ -80,6 +80,7 @@ export class OrderHomeComponent implements AfterViewInit {
   transportationOffer: TransportationOffer = {
     id_offer: 0,
     date_offer: new Date(0),
+    name_manager: '',
     client: this.client,
     cargo: this.cargo,
     freight_transportation_offer: 0,

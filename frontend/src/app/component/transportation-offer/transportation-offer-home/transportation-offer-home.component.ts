@@ -31,7 +31,7 @@ import { OrderFormComponent } from '../../order/order-form/order-form.component'
 })
 export class TransportationOfferHomeComponent implements AfterViewInit  {
 
-  displayedColumns: string[] = ['id_offer', 'date_offer', 'client', 'cargo', 'freight_transportation_offer', 'createOrder', 'edit', 'delete'];
+  displayedColumns: string[] = ['id_offer', 'date_offer', 'name_manager', 'client', 'cargo', 'freight_transportation_offer', 'createOrder', 'edit', 'delete'];
   dataSource = new MatTableDataSource<TransportationOffer>();
   transportationOffers: TransportationOffer[]=[];
   filteredTransportationOffers: TransportationOffer[]=[];
@@ -55,6 +55,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
 
   /* Transportation offer dialog */
   date_offer: Date = new Date(0);
+  name_manager: String = '';
   client: Client = {
     id_client: 0,
     name_client: '',
@@ -88,6 +89,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   transportationOffer: TransportationOffer = {
     id_offer: 0,
     date_offer: new Date(0),
+    name_manager: this.name_manager,
     client: this.client,
     cargo: this.cargo,
     freight_transportation_offer: this.freight_transportation_offer,

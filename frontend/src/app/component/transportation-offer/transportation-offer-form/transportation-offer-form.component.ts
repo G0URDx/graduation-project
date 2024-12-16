@@ -161,6 +161,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
   }
 
   addOrEditTransportationOffer(transportationOffer: TransportationOffer, cargo: Cargo) {
+    transportationOffer.name_manager = sessionStorage.getItem("AuthUsername");
     if(transportationOffer.id_offer !== 0) {
       this.cargoService.updateCargo(cargo).subscribe({
         next:(dataCargo) => {
