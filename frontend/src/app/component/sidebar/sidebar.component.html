@@ -38,7 +38,7 @@
         </li>
         
         <!-- Manager buttons -->
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="/order/home" 
                 routerLinkActive="active" 
@@ -47,7 +47,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Orders</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="/transportation-offer/home" 
                 routerLinkActive="active" 
@@ -56,7 +56,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Offers</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="/client/home" 
                 routerLinkActive="active" 
@@ -65,7 +65,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Clients</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="customs/home" 
                 routerLinkActive="active" 
@@ -74,7 +74,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Customs</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged"> 
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin"> 
             <a class="sidebar-nav-link" 
                 routerLink="sender/home" 
                 routerLinkActive="active" 
@@ -83,7 +83,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Senders</span>
             </a>
         </li> 
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="recipient/home" 
                 routerLinkActive="active" 
@@ -92,7 +92,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Recipients</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="cargo/home" 
                 routerLinkActive="active" 
@@ -103,7 +103,7 @@
         </li>
 
         <!-- Scheduler buttons -->
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="driver/home" 
                 routerLinkActive="active" 
@@ -112,7 +112,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Drivers</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="vehicle/home" 
                 routerLinkActive="active" 
@@ -121,7 +121,7 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Vehicles</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="isLogged">
+        <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="trailer/home" 
                 routerLinkActive="active" 

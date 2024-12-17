@@ -27,34 +27,34 @@ const routes: Routes = [
   {path : "auth/signup" , component: SignupComponent},
   {path : "auth/signin" , component: SigninComponent},
 
-  {path: "transportation-offer/home", component: TransportationOfferHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "transportation-offer/home", component: TransportationOfferHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "transportation-offer", redirectTo: "transportation-offer/home", pathMatch: "full"},
 
-  {path: "client/home", component: ClientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "client/home", component: ClientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "client", redirectTo: "client/home", pathMatch: "full"},
 
-  {path: "customs/home", component: CustomsHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "customs/home", component: CustomsHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "customs", redirectTo: "customs/home", pathMatch: "full"},
 
-  {path: "sender/home", component: SenderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "sender/home", component: SenderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "sender", redirectTo: "sender/home", pathMatch: "full"},
 
-  {path: "recipient/home", component: RecipientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "recipient/home", component: RecipientHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "recipient", redirectTo: "recipient/home", pathMatch: "full"},
 
-  {path: "cargo/home", component: CargoHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "cargo/home", component: CargoHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "cargo", redirectTo: "cargo/home", pathMatch: "full"},
 
-  {path: "order/home", component: OrderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "order/home", component: OrderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "order", redirectTo: "order/home", pathMatch: "full"},
 
-  {path: "driver/home", component: DriverHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "driver/home", component: DriverHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'scheduler'] }},
   {path: "driver", redirectTo: "driver/home", pathMatch: "full"},
 
-  {path: "vehicle/home", component: VehicleHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "vehicle/home", component: VehicleHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'scheduler'] }},
   {path: "vehicle", redirectTo: "vehicle/home", pathMatch: "full"},
 
-  {path: "trailer/home", component: TrailerHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'user'] }},
+  {path: "trailer/home", component: TrailerHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'scheduler'] }},
   {path: "trailer", redirectTo: "trailer/home", pathMatch: "full"},
 
   {path : "**", redirectTo: "", pathMatch: "full"},

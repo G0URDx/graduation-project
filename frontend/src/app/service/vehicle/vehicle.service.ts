@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Vehicle } from '../../component/vehicle/vehicle';
 import { Observable } from 'rxjs';
 
-const BASE_URL = ["http://localhost:8080"]
+const BASE_URL = ["http://localhost:8080/api/scheduler"]
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +13,18 @@ export class VehicleService {
   constructor(private http: HttpClient) { }
 
   fetchAllVehicles():Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(BASE_URL + `/api/v1/vehicle`);
+    return this.http.get<Vehicle[]>(BASE_URL + `/vehicle`);
   }
 
   createVehicle(data: Vehicle) {
-    return this.http.post<Vehicle>(BASE_URL + `/api/v1/vehicle`, data);
+    return this.http.post<Vehicle>(BASE_URL + `/vehicle`, data);
   }
 
   updateVehicle(data: Vehicle) {
-    return this.http.put<Vehicle>(BASE_URL + `/api/v1/vehicle/${data.id_vehicle}`, data);
+    return this.http.put<Vehicle>(BASE_URL + `/vehicle/${data.id_vehicle}`, data);
   }
 
   deleteVehicle(id_vehicle: Number) {
-    return this.http.delete<Vehicle>(BASE_URL + `/api/v1/vehicle/${id_vehicle}`);
+    return this.http.delete<Vehicle>(BASE_URL + `/vehicle/${id_vehicle}`);
   }
 }

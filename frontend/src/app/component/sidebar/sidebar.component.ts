@@ -43,6 +43,8 @@ export class SidebarComponent implements OnInit {
   isLogged = false;
   roles: string[];
   isAdmin = false;
+  isManager = false;
+  isScheduler = false;
 
   constructor(
     private tokenService: TokenService,
@@ -73,6 +75,10 @@ export class SidebarComponent implements OnInit {
     this.roles.forEach(role => {
       if (role === 'ROLE_ADMIN') {
         this.isAdmin = true;
+      } else if (role === 'ROLE_MANAGER') {
+        this.isManager = true;
+      } else if (role === 'ROLE_SCHEDULER') {
+        this.isScheduler = true;
       }
     });
   }

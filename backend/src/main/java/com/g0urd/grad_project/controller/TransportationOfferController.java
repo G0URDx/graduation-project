@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.g0urd.grad_project.models.TransportationOffer;
@@ -16,33 +17,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin(maxAge = 3360)
 @RestController
+@RequestMapping("/api/manager")
+@PreAuthorize("hasRole('MANAGER')")
 public class TransportationOfferController {
 
     @Autowired
     private TransportationOfferService transportationOfferService;
 
-    @GetMapping("/api/v1/transportation-offer")
+    @GetMapping("/transportation-offer")
     public ResponseEntity<List<TransportationOffer>> fetchAllTransportationOffers() {
         return ResponseEntity.ok(transportationOfferService.fetchAllTransportationOffers());
     }
 
-    @PostMapping("/api/v1/transportation-offer")
+    @PostMapping("/transportation-offer")
     public ResponseEntity<TransportationOffer> createTransportationOffer(
             @RequestBody TransportationOffer transportationOffer) {
         return ResponseEntity.ok(transportationOfferService.createTransportationOffer(transportationOffer));
     }
 
-    @PutMapping("/api/v1/transportation-offer/{id}")
+    @PutMapping("/transportation-offer/{id}")
     public ResponseEntity<TransportationOffer> updateTransportationOffer(
             @PathVariable("id") Long id,
             @RequestBody TransportationOffer transportationOffer) {
         return ResponseEntity.ok(transportationOfferService.updateTransportationOffer(transportationOffer));
     }
 
-    @DeleteMapping("/api/v1/transportation-offer/{id}")
+    @DeleteMapping("/transportation-offer/{id}")
     public ResponseEntity<Boolean> deleteTransportationOffer(@PathVariable("id") Long id) {
         return ResponseEntity.ok(transportationOfferService.deleteTransportationOffer(id));
     }
