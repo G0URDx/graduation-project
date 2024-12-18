@@ -80,7 +80,7 @@ export class OrderHomeComponent implements AfterViewInit {
   transportationOffer: TransportationOffer = {
     id_offer: 0,
     date_offer: new Date(0),
-    name_manager: '',
+    nameManager: '',
     client: this.client,
     cargo: this.cargo,
     freight_transportation_offer: 0,

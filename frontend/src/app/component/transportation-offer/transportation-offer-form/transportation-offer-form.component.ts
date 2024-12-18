@@ -25,6 +25,7 @@ import { SenderService } from '../../../service/sender/sender.service';
 import { CustomsService } from '../../../service/customs/customs.service';
 import { RecipientService } from '../../../service/recipient/recipient.service';
 import { CargoService } from '../../../service/cargo/cargo.service';
+import { TokenService } from '../../../service/token/token.service';
 
 @Component({
   selector: 'app-transportation-offer-form',
@@ -45,6 +46,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
 
   dataTransportationOffer: TransportationOffer = this.dialogData.transportationOffer
   dataCargo: Cargo = this.dialogData.cargo
+  currentManagerName: string = '';
 
   // Mat-Select-Search variables for Transportation offer
   clients: Client[] = [];
@@ -77,10 +79,13 @@ export class TransportationOfferFormComponent implements AfterViewInit {
     private clientService: ClientService,
     private senderService: SenderService,
     private customsService: CustomsService,
-    private recipientService: RecipientService
+    private recipientService: RecipientService,
+    private tokenService: TokenService
   ) {}
 
   ngAfterViewInit(): void {
+    this.currentManagerName = this.tokenService.getUserName();
+
     // Проверка переданных данных для корректности
     if (!this.dataTransportationOffer.client) {
       this.dataTransportationOffer.client = { id_client: 0, name_client: '', location_client: '', work_number_client: '', tax_number_client: '', employee_client: '', description_client: '' };
@@ -161,7 +166,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
   }
 
   addOrEditTransportationOffer(transportationOffer: TransportationOffer, cargo: Cargo) {
-    transportationOffer.name_manager = sessionStorage.getItem("AuthUsername");
+  transportationOffer.nameManager = this.currentManagerName;
     if(transportationOffer.id_offer !== 0) {
       this.cargoService.updateCargo(cargo).subscribe({
         next:(dataCargo) => {
@@ -169,7 +174,7 @@ export class TransportationOfferFormComponent implements AfterViewInit {
           transportationOffer.cargo = dataCargo;
           this.transportationOfferService.updateTransportationOffer(transportationOffer).subscribe({
             next:(dataTransportationOffer) => {
-              console.log("Transportation offer created Successfully")
+              console.log("Transportation offer updated Successfully")
               window.location.reload();
             },
             error:(err) => {

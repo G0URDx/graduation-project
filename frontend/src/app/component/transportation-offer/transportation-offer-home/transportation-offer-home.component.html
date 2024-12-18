@@ -5,6 +5,10 @@
       <input (input)="searchTransportationOffer(filter.value)" matInput placeholder="Search" type="text" #filter>
     </mat-form-field>
 
+    <button (click)="toggleOfferVisibility()" mat-flat-button style="margin-left: 10px;">
+      {{ showAllOffers ? 'View my offers' : 'View all offers' }}
+    </button>
+
     <button (click)="openTransportationOfferDialog(transportationOffer)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
@@ -23,7 +27,7 @@
       <!-- name_manager Column -->
       <ng-container matColumnDef="name_manager">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Manager </th>
-        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.name_manager}} </td>
+        <td mat-cell *matCellDef="let transportationOffer"> {{transportationOffer.nameManager}} </td>
       </ng-container>
     
       <!-- Client Column -->
@@ -48,7 +52,7 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let transportationOffer">
-          <button mat-button (click)="openTransportationOfferDialog(transportationOffer)">Edit</button>
+          <button *ngIf="transportationOffer.nameManager === currentManagerName" mat-button (click)="openTransportationOfferDialog(transportationOffer)">Edit</button>
         </td>
       </ng-container>
     
@@ -56,7 +60,7 @@
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let transportationOffer">
-          <button mat-button (click)="deleteTransportationOffer(transportationOffer.id_offer)" color="warn">Delete</button>
+          <button *ngIf="transportationOffer.nameManager === currentManagerName" mat-button (click)="deleteTransportationOffer(transportationOffer.id_offer)" color="warn">Delete</button>
         </td>
       </ng-container>
 
@@ -65,7 +69,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let transportationOffer">
           <button mat-button color="primary" 
-                  *ngIf="!transportationOffer.hasOrder" 
+                  *ngIf="!transportationOffer.hasOrder && transportationOffer.nameManager === currentManagerName" 
                   (click)="openOrderDialog(transportationOffer)">
             Create order
           </button>

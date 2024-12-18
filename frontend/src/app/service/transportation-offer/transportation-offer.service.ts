@@ -16,6 +16,10 @@ export class TransportationOfferService {
     return this.http.get<TransportationOffer[]>(BASE_URL + `/transportation-offer`);
   }
 
+  fetchMyTransportationOffers(): Observable<TransportationOffer[]> {
+    return this.http.get<TransportationOffer[]>(BASE_URL + `/transportation-offer/my-offers`);
+  }
+
   createTransportationOffer(data: TransportationOffer) {
     return this.http.post<TransportationOffer>(BASE_URL + `/transportation-offer`, data);
   }

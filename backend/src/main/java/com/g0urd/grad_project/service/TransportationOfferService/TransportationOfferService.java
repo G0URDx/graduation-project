@@ -16,4 +16,8 @@ public interface TransportationOfferService {
 
     Boolean deleteTransportationOffer(Long id);
 
+    List<TransportationOffer> findAllByCurrentManager();
+
+    String getCurrentUsername();
+
 }

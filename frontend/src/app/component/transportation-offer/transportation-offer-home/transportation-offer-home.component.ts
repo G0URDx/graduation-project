@@ -21,6 +21,7 @@ import { tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../../service/order/order.service';
 import { OrderFormComponent } from '../../order/order-form/order-form.component';
+import { TokenService } from '../../../service/token/token.service';
 
 @Component({
   selector: 'app-transportation-offer-home',
@@ -35,6 +36,8 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   dataSource = new MatTableDataSource<TransportationOffer>();
   transportationOffers: TransportationOffer[]=[];
   filteredTransportationOffers: TransportationOffer[]=[];
+  currentManagerName: String = '';
+  showAllOffers: boolean = false;
 
   // Blank objects for transportation offer
   sender: Sender = {
@@ -55,7 +58,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
 
   /* Transportation offer dialog */
   date_offer: Date = new Date(0);
-  name_manager: String = '';
+  nameManager: string = '';
   client: Client = {
     id_client: 0,
     name_client: '',
@@ -89,7 +92,7 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   transportationOffer: TransportationOffer = {
     id_offer: 0,
     date_offer: new Date(0),
-    name_manager: this.name_manager,
+    nameManager: this.nameManager,
     client: this.client,
     cargo: this.cargo,
     freight_transportation_offer: this.freight_transportation_offer,
@@ -99,16 +102,27 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   readonly dialog = inject(MatDialog);
 
-  constructor(private transportationOfferService: TransportationOfferService, private cargoService: CargoService, private orderService: OrderService) {}
+  constructor(
+    private transportationOfferService: TransportationOfferService, 
+    private cargoService: CargoService, 
+    private orderService: OrderService, 
+    private tokenService: TokenService
+  ) {}
 
   ngAfterViewInit(): void {
-    this.transportationOfferService.fetchAllTransportationOffers().subscribe((offers) => {
-      // Fetch all orders to check for related offers
-      this.orderService.fetchAllOrders().subscribe((orders) => {
-        const orderOfferIds = orders.map(order => order.transportationOffer.id_offer);
+    this.currentManagerName = this.tokenService.getUserName();
+    this.loadOffers();
+  }
 
-        // Mark offers as linked or not linked
-        this.transportationOffers = offers.map(offer => ({
+  loadOffers(): void {
+    const fetchMethod = this.showAllOffers
+      ? this.transportationOfferService.fetchAllTransportationOffers()
+      : this.transportationOfferService.fetchMyTransportationOffers();
+
+    fetchMethod.subscribe((offers) => {
+      this.orderService.fetchAllOrders().subscribe((orders) => {
+        const orderOfferIds = orders.map((order) => order.transportationOffer.id_offer);
+        this.transportationOffers = offers.map((offer) => ({
           ...offer,
           hasOrder: orderOfferIds.includes(offer.id_offer),
         }));
@@ -118,6 +132,11 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
         this.dataSource.paginator = this.paginator;
       });
     });
+  }
+
+  toggleOfferVisibility(): void {
+    this.showAllOffers = !this.showAllOffers;
+    this.loadOffers();
   }
 
   searchTransportationOffer(input: any) {
@@ -172,38 +191,41 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   
 
   deleteTransportationOffer(id_offer: Number) {
-    const isConfirmed = window.confirm("Delete item?");
-    if (isConfirmed) {
-      // Удаление предложения на перевозку
-      this.transportationOfferService.deleteTransportationOffer(id_offer).pipe(
-        tap(() => {
-          // После удаления предложения на перевозку, удалить связанное cargo
-          const offerIndex = this.transportationOffers.findIndex(item => item.id_offer === id_offer);
-          const cargoToDelete = this.transportationOffers[offerIndex]?.cargo;
+  const isConfirmed = window.confirm("Delete item?");
+  if (!isConfirmed) return;
 
-          if (cargoToDelete) {
-            this.cargoService.deleteCargo(cargoToDelete.id_cargo).subscribe({
-              next: () => {
-                console.log("Cargo deleted successfully");
-              },
-              error: (err) => {
-                console.error("Error deleting cargo:", err);
-              }
-            });
-          }
+  const offerIndex = this.transportationOffers.findIndex(item => item.id_offer === id_offer);
+  const cargoToDelete = this.transportationOffers[offerIndex]?.cargo;
 
-          // Обновить список предложений на перевозку, исключая удаленное
+  if (!cargoToDelete) {
+    console.error("No associated cargo found for the offer.");
+    return;
+  }
+
+  // Удалить транспортное предложение
+  this.transportationOfferService.deleteTransportationOffer(id_offer).subscribe({
+    next: () => {
+      console.log("Transportation offer deleted successfully");
+
+      // После успешного удаления предложения удалить cargo
+      this.cargoService.deleteCargo(cargoToDelete.id_cargo).subscribe({
+        next: () => {
+          console.log("Cargo deleted successfully");
+
+          // Обновить локальные данные
           this.transportationOffers.splice(offerIndex, 1);
-          this.dataSource.data = [...this.transportationOffers]; // Обновление источника данных таблицы
-        })
-      ).subscribe({
+          this.dataSource.data = [...this.transportationOffers];
+        },
         error: (err) => {
-          console.error("Error deleting transportation offer:", err);
+          console.error("Error deleting cargo:", err);
         }
       });
-      
-      window.location.reload();
+    },
+    error: (err) => {
+      console.error("Error deleting transportation offer:", err);
     }
-  }
+  });
+}
+
 
 }

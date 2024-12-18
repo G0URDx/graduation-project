@@ -3,6 +3,8 @@ package com.g0urd.grad_project.service.TransportationOfferService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.g0urd.grad_project.models.TransportationOffer;
@@ -36,7 +38,7 @@ public class TransportationOfferServiceImplementation implements TransportationO
                 .findById(transportationOffer.getId_offer()).get();
         if (transportationOfferObject != null) {
             transportationOfferObject.setDate_offer(transportationOffer.getDate_offer());
-            transportationOfferObject.setName_manager(transportationOffer.getName_manager());
+            transportationOfferObject.setNameManager(transportationOffer.getNameManager());
             transportationOfferObject.setClient(transportationOffer.getClient());
             transportationOfferObject.setCargo(transportationOffer.getCargo());
             transportationOfferObject
@@ -53,6 +55,22 @@ public class TransportationOfferServiceImplementation implements TransportationO
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<TransportationOffer> findAllByCurrentManager() {
+        String currentUsername = getCurrentUsername();
+        return transportationOfferRepository.findByNameManager(currentUsername);
+    }
+
+    @Override
+    public String getCurrentUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            return principal.toString();
+        }
     }
 
 }

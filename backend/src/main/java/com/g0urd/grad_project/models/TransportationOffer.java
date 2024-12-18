@@ -35,7 +35,7 @@ public class TransportationOffer {
     private Date date_offer;
 
     @Column(name = "name_manager", unique = false, nullable = false)
-    private String name_manager;
+    private String nameManager;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_client", nullable = false)

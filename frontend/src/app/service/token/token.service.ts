@@ -29,6 +29,10 @@ export class TokenService {
 
   public getUserName(): string {
     return sessionStorage.getItem(USERNAME_KEY);
+    // const token = this.getToken();
+    // if (!token) return '';
+    // const payload = JSON.parse(atob(token.split('.')[1]));
+    // return payload.sub;
   }
 
   public setAuthorities(authorities: string[]): void {

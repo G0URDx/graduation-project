@@ -33,6 +33,11 @@ public class TransportationOfferController {
         return ResponseEntity.ok(transportationOfferService.fetchAllTransportationOffers());
     }
 
+    @GetMapping("/transportation-offer/my-offers")
+    public ResponseEntity<List<TransportationOffer>> fetchMyOffers() {
+        return ResponseEntity.ok(transportationOfferService.findAllByCurrentManager());
+    }
+
     @PostMapping("/transportation-offer")
     public ResponseEntity<TransportationOffer> createTransportationOffer(
             @RequestBody TransportationOffer transportationOffer) {
