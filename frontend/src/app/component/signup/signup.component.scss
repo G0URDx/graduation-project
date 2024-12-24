@@ -39,3 +39,10 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.form-signup select.form-control {
+  margin-bottom: -1px;
+  border-radius: 0;
+  appearance: none;
+  // background: #f8f9fa;
+}

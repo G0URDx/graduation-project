@@ -25,8 +25,17 @@
       [(ngModel)]="confirmPassword" required ng-class="(password!='' && password!=repeatPassword) ? 'ng-invalid' : ''">
       <label for="floatingPassword">Повторите пароль</label>
     </div>
+    <div class="form-floating">
+      <select class="form-control" id="floatingRole" name="role" [(ngModel)]="role" required>
+        <option value="" disabled selected>Выберите роль</option>
+        <option value="ROLE_MANAGER">ROLE_MANAGER</option>
+        <option value="ROLE_SCHEDULER">ROLE_SCHEDULER</option>
+        <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+      </select>
+      <label for="floatingRole">Роль</label>
+    </div>
   
-    <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="!f.valid">Зарегистрировать</button>
+    <button class="btn btn-primary w-100 py-2 mt-3" type="submit" [disabled]="!f.valid">Зарегистрировать</button>
     <p class="mt-5 mb-3 text-body-secondary">Ivan Shumovich - Graduation project</p>
     </form>
 </ng-template>

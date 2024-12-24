@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   email: string;
   password: string;
   confirmPassword: string;
+  role: string;
   errorMessage: string;
   isLogged = false;
 
@@ -33,13 +34,18 @@ export class SignupComponent implements OnInit {
   }
 
   onRegister(): void {
-    this.signup = new Signup(this.username, this.email, this.password);
+    if (!this.role) {
+      this.toastr.error('Выберите роль', 'Ошибка', { timeOut: 3000, positionClass: 'toast-top-center' });
+      return;
+    }
+  
+    this.signup = new Signup(this.username, this.email, this.password, this.role);
     this.signupService.signup(this.signup).subscribe(
       data => {
         this.toastr.success('Пользователь зарегистрирован', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-
+  
         this.router.navigate(['/auth/signin']);
       },
       err => {
@@ -47,7 +53,6 @@ export class SignupComponent implements OnInit {
         this.toastr.error(this.errorMessage, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        // console.log(err.error.message);
       }
     );
   }
