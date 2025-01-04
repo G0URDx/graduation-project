@@ -13,7 +13,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-house"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Home</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Главная</span>
             </a>
         </li>
 
@@ -24,27 +24,45 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-right-to-bracket"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Signin</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Войти</span>
             </a>
         </li>
-        <li class="sidebar-nav-item" *ngIf="!isLogged">
+
+        <!-- Admin buttons -->
+        <li class="sidebar-nav-divider" *ngIf="isAdmin" @fadeInOut>
+            <ng-container *ngIf="!collapsed; else fullTextAdmin">
+                <i class="fa-solid fa-shield divider-icon"></i>
+            </ng-container>
+            <ng-template #fullTextAdmin>
+                Админ
+            </ng-template>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="/auth/signup" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-user-plus"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Signup</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Регистрация</span>
             </a>
         </li>
         
         <!-- Manager buttons -->
+        <li class="sidebar-nav-divider" *ngIf="isManager || isAdmin" @fadeInOut>
+            <ng-container *ngIf="!collapsed; else fullText">
+                <i class="fa-solid fa-user-group divider-icon"></i>
+            </ng-container>
+            <ng-template #fullText>
+                Менеджеры
+            </ng-template>
+        </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="/order/home" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-folder"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Orders</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Заказы</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
@@ -53,7 +71,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-file"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Offers</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Предложения</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
@@ -62,7 +80,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-circle-user"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Clients</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Клиенты</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
@@ -71,7 +89,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-person-military-pointing"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Customs</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Таможни</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin"> 
@@ -80,7 +98,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-person-arrow-up-from-line"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Senders</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Отправители</span>
             </a>
         </li> 
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
@@ -89,7 +107,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-person-arrow-down-to-line"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Recipients</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Получаетели</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
@@ -98,18 +116,26 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-box"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Cargos</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Грузы</span>
             </a>
         </li>
 
         <!-- Scheduler buttons -->
+        <li class="sidebar-nav-divider" *ngIf="isScheduler || isAdmin" @fadeInOut>
+            <ng-container *ngIf="!collapsed; else fullTextScheduler">
+                <i class="fa-solid fa-calendar divider-icon"></i>
+            </ng-container>
+            <ng-template #fullTextScheduler>
+                Планировщики
+            </ng-template>
+        </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
             <a class="sidebar-nav-link" 
                 routerLink="driver/home" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-user-gear"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Drivers</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Водители</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
@@ -118,7 +144,7 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-truck-front"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Vehicles</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Транспорт</span>
             </a>
         </li>
         <li class="sidebar-nav-item" *ngIf="isLogged && isScheduler || isLogged && isAdmin">
@@ -127,20 +153,26 @@
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}">
                     <i class="sidebar-link-icon fa-solid fa-trailer"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Trailers</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Прицепы</span>
             </a>
         </li>
-
-        <!-- Admin buttons -->
         
         <!-- Quit button -->
+        <li class="sidebar-nav-divider" *ngIf="isLogged" @fadeInOut>
+            <ng-container *ngIf="!collapsed; else fullTextScheduler">
+                <i class="fa-solid fa-gear divider-icon"></i>
+            </ng-container>
+            <ng-template #fullTextScheduler>
+                Настройки
+            </ng-template>
+        </li>
         <li class="sidebar-nav-item" *ngIf="isLogged">
             <a class="sidebar-nav-link" 
                 routerLinkActive="active" 
                 [routerLinkActiveOptions]="{exact: true}"
                 (click)="onLogOut()">
                     <i class="sidebar-link-icon fa-solid fa-right-from-bracket"></i>
-                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Quit</span>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Выйти</span>
             </a>
         </li>
     </ul>

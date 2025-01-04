@@ -38,6 +38,8 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   filteredTransportationOffers: TransportationOffer[]=[];
   currentManagerName: String = '';
   showAllOffers: boolean = false;
+  roles: string[];
+  isAdmin = false;
 
   // Blank objects for transportation offer
   sender: Sender = {
@@ -110,6 +112,12 @@ export class TransportationOfferHomeComponent implements AfterViewInit  {
   ) {}
 
   ngAfterViewInit(): void {
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(role => {
+      if (role === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      } 
+    });
     this.currentManagerName = this.tokenService.getUserName();
     this.loadOffers();
   }

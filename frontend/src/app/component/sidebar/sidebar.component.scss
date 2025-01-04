@@ -108,3 +108,23 @@
         color: #000;
     }
 }
+
+.sidebar-nav-divider {
+    color: #b0bec5;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    text-align: left;
+    width: 100%;
+    // padding-left: 0.5rem;
+    border-bottom: 1px solid #37474f;
+}
+
+.divider-icon {
+    font-size: 18px;
+    color: #b0bec5;
+    display: block;
+    text-align: center;
+    // margin: 0.5rem 0;
+}
