@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.g0urd.grad_project.models.Client;
 import com.g0urd.grad_project.repository.ClientRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ClientServiceImplementation implements ClientService {
 
@@ -44,11 +46,11 @@ public class ClientServiceImplementation implements ClientService {
         return clientRepository.save(clientObject);
     }
 
+    @Transactional
     @Override
     public Boolean deleteClient(Long id) {
-        Client clientObject = clientRepository.findById(id).get();
-        if (clientObject != null) {
-            clientRepository.delete(clientObject);
+        if (clientRepository.existsById(id)) {
+            clientRepository.deleteById(id);
             return true;
         }
         return false;

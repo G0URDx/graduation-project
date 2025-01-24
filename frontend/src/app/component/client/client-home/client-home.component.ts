@@ -9,6 +9,7 @@ import { Client } from '../client';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '../../../service/client/client.service';
 import { ClientFormComponent } from '../client-form/client-form.component';
+import { CuratorshipService } from '../../../service/curatorship/curatorship.service';
 
 @Component({
   selector: 'app-client-home',
@@ -47,7 +48,9 @@ export class ClientHomeComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   readonly dialog = inject(MatDialog);
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService,
+    private curatorshipService: CuratorshipService
+  ) {}
 
   ngAfterViewInit(): void {
     this.clientService.fetchAllClient().subscribe((data) => {

@@ -1,0 +1,52 @@
+<div>
+    <h1 style="text-align: center;"><strong>Кураторства</strong></h1>
+
+    <mat-form-field>
+      <input (input)="searchCuratorship(filter.value)" matInput placeholder="Search" type="text" #filter>
+    </mat-form-field>
+
+    <button (click)="openCuratorshipDialog(curatorship)" mat-flat-button style="width: 100px; float: right; outline: auto; height: 60px;">Add</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- id_curatorship Column -->
+        <ng-container matColumnDef="id_curatorship">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> ID </th>
+          <td mat-cell *matCellDef="let curatorship"> {{curatorship.id_curatorship}} </td>
+        </ng-container>
+        
+        <!-- nameManager Column -->
+        <ng-container matColumnDef="nameManager">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name manager"> Менеджер </th>
+          <td mat-cell *matCellDef="let curatorship"> {{curatorship.nameManager}} </td>
+        </ng-container>
+  
+        <!-- name_client Column -->
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name client"> Клиент </th>
+          <td mat-cell *matCellDef="let curatorship"> {{curatorship.client.name_client}} </td>
+        </ng-container>
+        
+        <!-- status_curatorship Column -->
+        <ng-container matColumnDef="status_curatorship">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status"> Статус отношений </th>
+          <td mat-cell *matCellDef="let curatorship"> {{curatorship.status_curatorship}} </td>
+        </ng-container>
+  
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let client"> <button (click)="openCuratorshipDialog(curatorship)" mat-flat-button style="height: 27px; width: auto;">Edit</button> </td>
+        </ng-container>
+  
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let client"> <button (click)="deleteCuratorship(curatorship.id_curatorship)" mat-flat-button style="height: 27px; width: auto;" color="warn">Delete</button> </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let clients; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>

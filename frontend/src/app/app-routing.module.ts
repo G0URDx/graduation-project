@@ -18,6 +18,7 @@ import { OrderHomeComponent } from './component/order/order-home/order-home.comp
 import { DriverHomeComponent } from './component/driver/driver-home/driver-home.component';
 import { VehicleHomeComponent } from './component/vehicle/vehicle-home/vehicle-home.component';
 import { TrailerHomeComponent } from './component/trailer/trailer-home/trailer-home.component';
+import { CuratorshipHomeComponent } from './component/curatorship/curatorship-home/curatorship-home.component';
 
 const routes: Routes = [
   {path : "", redirectTo: "home", pathMatch: "full"},
@@ -47,6 +48,9 @@ const routes: Routes = [
 
   {path: "order/home", component: OrderHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
   {path: "order", redirectTo: "order/home", pathMatch: "full"},
+
+  {path: "curatorship/home", component: CuratorshipHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'manager'] }},
+  {path: "curatorship", redirectTo: "curatorship/home", pathMatch: "full"},
 
   {path: "driver/home", component: DriverHomeComponent, canActivate: [SecurityService], data: { expectedRole: ['admin', 'scheduler'] }},
   {path: "driver", redirectTo: "driver/home", pathMatch: "full"},

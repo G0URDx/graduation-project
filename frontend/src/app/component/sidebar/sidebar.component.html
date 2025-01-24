@@ -119,6 +119,15 @@
                     <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Грузы</span>
             </a>
         </li>
+        <li class="sidebar-nav-item" *ngIf="isLogged && isManager || isLogged && isAdmin">
+            <a class="sidebar-nav-link" 
+                routerLink="curatorship/home" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: true}">
+                    <i class="sidebar-link-icon fa-solid fa-people-arrows"></i>
+                    <span class="sidebar-link-text" @fadeInOut *ngIf="collapsed">Кураторство</span>
+            </a>
+        </li>
 
         <!-- Scheduler buttons -->
         <li class="sidebar-nav-divider" *ngIf="isScheduler || isAdmin" @fadeInOut>

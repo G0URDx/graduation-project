@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.g0urd.grad_project.models.Client;
 import com.g0urd.grad_project.service.ClientService.ClientService;
+import com.g0urd.grad_project.service.CuratorshipService.CuratorshipService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,9 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private CuratorshipService curatorshipService;
 
     @GetMapping("/client")
     public ResponseEntity<List<Client>> fetchAllClients() {
@@ -47,7 +52,9 @@ public class ClientController {
 
     @DeleteMapping("/client/{id}")
     public ResponseEntity<Boolean> deleteClient(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(clientService.deleteClient(id));
+        curatorshipService.deleteByClientId(id);
+        boolean isDeleted = clientService.deleteClient(id);
+        return ResponseEntity.ok(isDeleted);
     }
 
 }
